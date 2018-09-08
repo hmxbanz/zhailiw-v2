@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.zhailiw.app.view.activity.ShopCarActivity">
+    <include layout="@layout/layout_title_top" />
+
+        <FrameLayout
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swiper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.youth.banner.Banner
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp">
+
+                        </com.youth.banner.Banner>
+
+                        <TextView
+                            android:padding="10dp"
+                            style="@style/AppTitleStyle"
+                            android:id="@+id/txt_product_name"
+                            android:text="产品名"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:padding="10dp"
+                            android:id="@+id/txt_product_no"
+                            android:text="型号"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:padding="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:background="@color/appTextColor"
+                                android:layout_width="5dp"
+                                android:layout_height="match_parent" />
+
+                            <TextView
+                                android:paddingLeft="5dp"
+                                android:text="产品基础信息"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:padding="10dp"
+                            android:id="@+id/txt_product_type"
+                            android:text="产品信息"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:padding="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:background="@color/appTextColor"
+                                android:layout_width="5dp"
+                                android:layout_height="match_parent" />
+
+                            <TextView
+                                android:paddingLeft="5dp"
+                                android:text="产品详情"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/layout_content"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <LinearLayout
+                android:background="@color/appBg"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <ImageView
+                    android:id="@+id/img_favor"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/icon_collection"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp" />
+                <Button
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_gravity="bottom"
+                    android:id="@+id/btn_add_shop_car"
+                    android:text="@string/str_add_shop_car"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    style="@style/AppButtonStyle"
+                    android:background="@color/orange"
+                    />
+                <Button
+                    android:layout_marginTop="0dp"
+                    android:layout_gravity="bottom"
+                    android:id="@+id/btn_buy"
+                    android:text="@string/str_buy"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    style="@style/AppButtonStyle"
+
+                    />
+            </LinearLayout>
+
+        </FrameLayout>
+
+</LinearLayout>

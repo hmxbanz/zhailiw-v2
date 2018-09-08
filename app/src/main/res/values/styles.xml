@@ -1,0 +1,119 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTitleStyle">
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="AppButtonStyle">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:background">@drawable/bg_button</item>
+    </style>
+
+    <style name="ButtonStyleRadius">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:background">@drawable/bg_button3</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textColor">@color/appTextColor</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:background">@drawable/bg_button2</item>
+    </style>
+
+    <style name="AppPlaintTextStyle">
+        <item name="android:textColor">@color/appTextColor</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="MenuTitleStyle">
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="dialogFullscreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="dialogFullscreenTranslucent">
+        <item name="android:windowBackground">@drawable/transparent_drawable</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--编辑输入框-->
+    <style name="EditTextStyle">
+        <item name="android:height">50dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:background">@color/appBg</item>
+    </style>
+    <style name="TabTitle">
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="MyTabLayoutTextAppearanceInverse" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
+
+    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/TabTextAppearence</item>
+        <item name="tabBackground">@color/white</item>
+        <item name="tabIndicatorColor">@color/mainColorPinkDark</item>
+        <item name="tabSelectedTextColor">@color/mainColorPinkDark</item>
+    </style>
+
+    <style name="TabTextAppearence" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="myDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+<!--2018-8-->
+    <style name="TitleStyle">
+        <item name="android:textColor">@color/textColor1</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="TitleStyle1">
+        <item name="android:background">@color/mainColorBg</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+</resources>

@@ -1,0 +1,101 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.zhailiw.app"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 20180530
+        versionName "1.0.5.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    sourceSets.main {
+        jniLibs.srcDirs = ['libs'] // <-- Set your folder here!
+        //java.srcDirs = ['src/main/java', 'src/main/自建文件夹名']
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '27.0.3'
+    signingConfigs {
+        debug {
+            storeFile file("../keystore.jks")
+            storePassword "zhailiw123"
+            keyAlias "zhaili"
+            keyPassword "zhailiw123"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':picture_library')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation('cn.yipianfengye.android:zxing-library:2.2') {
+        exclude group: 'com.android.support'
+    }
+    //二维码扫描
+    implementation 'com.alibaba:fastjson:1.1.46.android'
+    //Json工具
+    implementation 'com.zhy:okhttputils:2.6.2'
+    //网络请求
+    implementation('com.jaeger.statusbarutil:library:1.5.1') {
+        exclude group: 'com.android.support'
+    }
+    //设置状态栏
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    //异步请求
+    //Logger日志插件
+    implementation 'com.orhanobut:logger:1.8'
+    //图片加载工具
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    implementation 'com.youth.banner:banner:1.4.9'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.fyales.android:library:1.0.2'
+    //标签
+    implementation('com.lzy.widget:ninegridview:0.2.0') {
+            exclude group: 'com.android.support'
+        }//九宫格图
+    implementation 'org.immutables:gson:2.1.8'
+    implementation('cn.qqtheme.framework:WheelPicker:1.5.5') {//滚轮选择
+        exclude group: 'com.android.support'
+    }
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+    //滑动listview 删除
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+}
+MobSDK {
+    appKey "259113d838515"
+    appSecret "a52c2a4934e2095dcb5db0f8c353f040"
+
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+//            SinaWeibo {
+//                appKey "568898243"
+//                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+//                callbackUri "http://www.sharesdk.cn"
+//                shareByAppClient false
+//            }
+            Wechat {
+                appId "wxb8d31ebd0f155f65"
+                appSecret "877d7cfd8bd0e82cbcbe372431267716"
+            }
+            QQ {
+                appId "1106781869"
+                appKey "2K8hnC5cfDQBmaCJ"
+            }
+
+        }
+    }
+
+}

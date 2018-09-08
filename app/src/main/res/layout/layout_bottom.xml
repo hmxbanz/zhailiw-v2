@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="#f9f9f9"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/grayLine" />
+
+    <!-- 底部导航 -->
+    <LinearLayout
+        android:id="@+id/main_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/tab_layout_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
+                <RelativeLayout
+                    android:id="@+id/ll"
+                    android:paddingTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/tab_img_home"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="#ffffff"
+                        android:focusable="false"
+                        android:scaleType="centerInside" />
+                    <TextView
+                        android:id="@+id/tab_text_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tab_img_home"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/txt_home"
+                        android:textColor="#abadbb"
+                        android:textSize="10dp" />
+                </RelativeLayout>
+            </FrameLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/tab_layout_shop"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
+                <RelativeLayout
+                    android:paddingTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/tab_img_shop"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="#ffffff"
+                        android:focusable="false"
+                        android:scaleType="centerInside" />
+                    <TextView
+                        android:id="@+id/tab_text_shop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tab_img_shop"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/txt_shop"
+                        android:textColor="#abadbb"
+                        android:textSize="10dp" />
+                </RelativeLayout>
+            </FrameLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/tab_layout_me"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:paddingTop="5dp" >
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
+                <RelativeLayout
+                    android:paddingTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/tab_img_me"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="#ffffff"
+                        android:focusable="false"
+                        android:scaleType="centerInside" />
+                    <TextView
+                        android:id="@+id/tab_text_me"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tab_img_me"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2.2dp"
+                        android:text="@string/txt_me"
+                        android:textColor="#abadbb"
+                        android:textSize="10dp" />
+                </RelativeLayout>
+            </FrameLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

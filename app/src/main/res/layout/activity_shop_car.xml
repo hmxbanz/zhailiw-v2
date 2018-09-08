@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.zhailiw.app.view.activity.ShopCarActivity">
+    <include layout="@layout/layout_title_top" />
+    <FrameLayout
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:paddingBottom="50dp"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:background="@color/appBg"
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:button="@null"
+                android:buttonTint="@color/mainColor"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_sum"
+                android:text="合计:"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_sum_price"
+                android:text="总价"
+                android:textColor="@color/mainColor"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_gravity="bottom"
+                android:id="@+id/btn_buy"
+                android:text="@string/str_pay"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                style="@style/AppButtonStyle"
+                />
+        </LinearLayout>
+
+</FrameLayout>
+</LinearLayout>

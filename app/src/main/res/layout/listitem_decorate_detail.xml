@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="50dp">
+        <TextView
+            style="@style/TitleStyle"
+            android:id="@+id/txt_name"
+            android:text="名称"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txt_state"
+            android:textColor="@color/mainColor"
+            android:text="状态"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_down"
+            android:id="@+id/img_arrow"
+            android:scaleType="fitCenter"
+            android:paddingLeft="7dp"
+            android:paddingRight="8dp"
+            android:layout_width="30dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <TextView
+        style="@style/TitleStyle1"
+        android:id="@+id/txt_tips"
+        android:text="点击上传相关资料" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

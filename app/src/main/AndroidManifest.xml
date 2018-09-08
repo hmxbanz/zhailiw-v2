@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zhailiw.app">
+
+    <!-- Required 一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".view.activity.StartActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.activity.QrCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.GuideActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.MeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.UpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.AddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.ShopActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.LoginFirstActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.BindPhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.AddAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.FavorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.OrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.ShopCarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.ProductDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.OrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <!-- <activity -->
+        <!-- android:theme="@android:style/Theme.Translucent" -->
+        <!-- android:name=".wxapi.WXPayEntryActivity" -->
+        <!-- android:exported="true" -->
+        <!-- android:launchMode="singleTop"/> -->
+        <service android:name=".widget.downloadService.DownloadService" />
+        <service android:name=".service.BluetoothService" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".view.activity.DecorateActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.DecorateDetailActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.HouseDetailActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.ProgressEditActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.ProgressNewActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.DiaryNewActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.DiaryDetailActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.DecoratePeopleActivity" android:screenOrientation="portrait"></activity>
+    </application>
+
+</manifest>

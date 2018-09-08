@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.DecoratePeopleActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/layout_title_top" />
+
+
+
+        <LinearLayout
+            android:layout_marginTop="90dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/txt_type_name"
+                style="@style/TitleStyle"
+                android:text="设计师"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+            android:background="@color/mainColorBg"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                style="@style/TitleStyle"
+                android:text="姓名"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:background="@color/mainColorBg"
+                android:id="@+id/edit_name"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="3dp"
+                android:background="@color/mainColorBg"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    style="@style/TitleStyle"
+                    android:text="手机"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:background="@color/mainColorBg"
+                    android:id="@+id/edit_cellphone"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_alignParentBottom="true"
+            style="@style/ButtonStyleRadius"
+            android:text="提交" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

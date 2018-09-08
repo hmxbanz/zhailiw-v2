@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/app_bg"
+    tools:context="com.zhailiw.app.view.activity.RegisterActivity">
+    <include layout="@layout/layout_title_top" />
+
+    <LinearLayout
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo"
+            android:layout_marginBottom="30dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <EditText
+            android:textSize="12dp"
+            android:id="@+id/username"
+            android:padding="2dp"
+            android:gravity="center"
+            android:hint="手机号码"
+            android:inputType="number"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textSize="12dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/captcha"
+                android:hint="验证码"
+                android:inputType="number"
+                android:background="@color/white"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="35dp" />
+            <Button
+                android:id="@+id/btn_captcha"
+                android:text="@string/captcha_text"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                style="@style/ButtonStyle"
+                />
+        </LinearLayout>
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:textSize="12dp"
+            android:id="@+id/password"
+            android:padding="2dp"
+            android:gravity="center"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+        <EditText
+            android:layout_marginTop="5dp"
+            android:textSize="12dp"
+            android:id="@+id/password_again"
+            android:padding="2dp"
+            android:gravity="center"
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+        <Button
+            android:id="@+id/btn_register"
+            android:text="@string/register"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            style="@style/AppButtonStyle"
+            />
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

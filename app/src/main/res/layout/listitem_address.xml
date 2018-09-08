@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_marginTop="5dp"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_name"
+                android:text="姓名"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/txt_cellphone"
+                android:textSize="16dp"
+                android:text="手机"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <TextView
+            android:layout_marginBottom="10dp"
+            android:id="@+id/txt_address"
+            android:text="地址"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp" />
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_set_address"
+                android:src="@drawable/icon_square_check_fill"
+                android:visibility="gone"
+                android:tint="@color/mainColor"
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:id="@+id/txt_set_address"
+                android:text="设为默认"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:src="@drawable/icon_garbage"
+                android:tint="@color/gray"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:id="@+id/txt_delete"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="删除"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

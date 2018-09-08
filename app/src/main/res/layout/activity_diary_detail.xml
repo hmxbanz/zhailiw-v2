@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.ProgressEditActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/layout_title_top" />
+        <LinearLayout
+            android:id="@+id/layout_empty"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="65dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/icon_empty"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+<TextView
+    android:textSize="14dp"
+    android:padding="5dp"
+    android:text="还未上传相关资料"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="65dp"
+            android:layout_marginBottom="60dp"
+            android:background="@color/appBg"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+        <Button
+            android:id="@+id/btn_new_diary"
+            android:layout_alignParentBottom="true"
+            style="@style/ButtonStyleRadius"
+            android:text="新建" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

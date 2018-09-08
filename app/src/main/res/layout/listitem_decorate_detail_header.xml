@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        style="@style/TitleStyle"
+        android:text="负责人联系方式"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/layout_designer"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="20dp"
+            android:background="@color/mainColorBg"
+            android:layout_marginRight="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/icon_designer"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:textSize="10sp"
+                android:text="设计师"
+                android:textColor="@color/mainColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_designer_name"
+                android:gravity="center"
+                android:text="姓名"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_designer_cellphone"
+                android:gravity="center"
+                android:text="手机"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/btn_designer"
+                style="@style/ButtonStyleRadius"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_phone"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_worker"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="20dp"
+            android:background="@color/mainColorBg"
+            android:layout_marginRight="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@drawable/icon_worker"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:textSize="10sp"
+                android:text="监工"
+                android:textColor="@color/mainColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_worker_name"
+                android:gravity="center"
+                android:text="姓名"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_worker_cellphone"
+                android:gravity="center"
+                android:text="手机"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/btn_worker"
+                style="@style/ButtonStyleRadius"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_phone"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_seller"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="20dp"
+            android:background="@color/mainColorBg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/icon_seller"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:textSize="10sp"
+                android:text="业务员"
+                android:textColor="@color/mainColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_seller_name"
+                android:gravity="center"
+                android:text="姓名"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txt_seller_cellphone"
+                android:gravity="center"
+                android:text="手机"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/btn_seller"
+                style="@style/ButtonStyleRadius"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_phone"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
