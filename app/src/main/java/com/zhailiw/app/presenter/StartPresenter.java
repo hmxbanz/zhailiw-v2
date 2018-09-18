@@ -8,6 +8,8 @@ import android.os.Message;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.leeiidesu.permission.PermissionHelper;
+import com.leeiidesu.permission.callback.OnPermissionResultListener;
 import com.orhanobut.logger.Logger;
 import com.zhailiw.app.Const;
 import com.zhailiw.app.common.CommonTools;
@@ -28,10 +30,12 @@ import com.zhailiw.app.widget.downloadService.DownloadService;
 import com.zhailiw.app.widget.permissionLibrary.PermissionsManager;
 import com.zhailiw.app.widget.permissionLibrary.PermissionsResultAction;
 
+import java.util.ArrayList;
+
 import static com.zhailiw.app.common.CommonTools.getVersionInfo;
 
 
-public class StartPresenter extends BasePresenter {
+public class StartPresenter extends BasePresenter implements OnPermissionResultListener {
     private static final int GETSYSTEMOBJ = 1036;
     private static final int GETCITIES = 1037;
     private static final int CHECKVERSION = 1038;
@@ -52,6 +56,7 @@ public class StartPresenter extends BasePresenter {
             }
         }
     };
+    private String apkUrl;
 
     public StartPresenter(Context context) {
         super(context);
@@ -146,21 +151,26 @@ public class StartPresenter extends BasePresenter {
         }
     }
     private void goToDownload(final String apkUrl) {
+        this.apkUrl=apkUrl;
         //权限申请
-        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(activity,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionsResultAction() {
-                    @Override
-                    public void onGranted() {
-                        Intent intent=new Intent(activity,DownloadService.class);
-                        intent.putExtra("url", apkUrl);
-                        activity.startService(intent);
-                    }
+        String[] Permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        PermissionHelper.with(activity)
+                .permissions(Permissions)
+                .showOnRationale("存储权限", "取消", "我知道了")    //用户拒绝过但没有勾选不再提示会显示对话框
+                .showOnDenied("必需拔打存储权限才能更新", "取消", "去设置") //用户勾选不再提示会显示对话框
+                .listener(this)
+                .request();
+    }
 
-                    @Override
-                    public void onDenied(String permission) {
-                        Toast.makeText(context, "获取权限失败，请点击后允许获取", Toast.LENGTH_SHORT).show();
-                    }
-                }, true);
+    @Override
+    public void onGranted() {
+        Intent intent=new Intent(activity,DownloadService.class);
+        intent.putExtra("url", apkUrl);
+        activity.startService(intent);
+    }
+
+    @Override
+    public void onFailed(ArrayList<String> deniedPermissions) {
 
     }
 }

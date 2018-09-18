@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.leeiidesu.permission.PermissionHelper;
+import com.leeiidesu.permission.callback.OnPermissionResultListener;
 import com.zhailiw.app.Adapter.DecorateDetailAdapter;
 import com.zhailiw.app.Adapter.DecorateDetailListAdapter;
 import com.zhailiw.app.Adapter.ProgressListAdapter;
@@ -34,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DecorateDetailPresenter extends BasePresenter implements DecorateDetailAdapter.ItemClickListener, OnDataListener, SwipeRefreshLayout.OnRefreshListener {
+public class DecorateDetailPresenter extends BasePresenter implements DecorateDetailAdapter.ItemClickListener, OnDataListener, SwipeRefreshLayout.OnRefreshListener, OnPermissionResultListener {
     private static final String TAG = DecorateDetailPresenter.class.getSimpleName();
     private int houseId, processId, position;
     private DecorateDetailActivity activity;
@@ -48,6 +50,7 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
     private RecyclerView recyclerViewDataHolder;
     private DecorateDetailResponse.DataBean DetailRespon;
     private DecorateDetailAdapter.DataHolder holder;
+    private String phoneNum;
 
     public DecorateDetailPresenter(Context context) {
         super(context);
@@ -244,21 +247,20 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
      * @param phoneNum 电话号码
      */
     public void callPhone(String phoneNum) {
+        this.phoneNum=phoneNum;
         String[] Permissions = new String[]{Manifest.permission.CALL_PHONE};
-        //权限申请
-        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(activity,
-                Permissions,
-                new PermissionsResultAction() {
-                    @Override
-                    public void onGranted() {
-                    }
+//        //权限申请
+        PermissionHelper.with(activity)
+                .permissions(Permissions)
+                .showOnRationale("拔打电话权限", "取消", "我知道了")    //用户拒绝过但没有勾选不再提示会显示对话框
+                .showOnDenied("必需拔打电话权限才能使用", "取消", "去设置") //用户勾选不再提示会显示对话框
+                .listener(this)
+                .request();
+    }
 
-                    @Override
-                    public void onDenied(String permission) {
-                        Toast.makeText(context, "获取权限失败，请点击后允许获取", Toast.LENGTH_SHORT).show();
-                    }
-                }, true);
 
+    @Override
+    public void onGranted() {
         Intent intent = new Intent(Intent.ACTION_CALL);
         Uri data = Uri.parse("tel:" + phoneNum);
         intent.setData(data);
@@ -275,6 +277,8 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
         context.startActivity(intent);
     }
 
-
-
+    @Override
+    public void onFailed(ArrayList<String> deniedPermissions) {
+        Toast.makeText(context, "获取权限失败，请点击后允许获取", Toast.LENGTH_SHORT).show();
+    }
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
+import com.leeiidesu.permission.PermissionHelper;
 import com.zhailiw.app.Const;
 import com.zhailiw.app.common.NToast;
 import com.zhailiw.app.listener.AlertDialogCallBack;
@@ -41,23 +42,15 @@ public class MainPresenter extends BasePresenter {
     public void init(ViewPager viewPager) {
         this.viewPager=viewPager;
         atm.request(CHECKVERSION,this);
-        String[] Permissions=new String[]{Manifest.permission.CAMERA,
+        String[] Permissions=new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.READ_EXTERNAL_STORAGE};
         //权限申请
-        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(activity,
-                Permissions,
-                new PermissionsResultAction() {
-                    @Override
-                    public void onGranted() {
-
-                    }
-
-                    @Override
-                    public void onDenied(String permission) {
-                        Toast.makeText(context, "获取权限失败，请点击后允许获取", Toast.LENGTH_SHORT).show();
-                    }
-                }, true);
+        PermissionHelper.with(activity)
+                .permissions(Permissions)
+                .showOnRationale("存储权限", "取消", "我知道了")    //用户拒绝过但没有勾选不再提示会显示对话框
+                .showOnDenied("必需拔打存储权限才能更新", "取消", "去设置") //用户勾选不再提示会显示对话框
+                .request();
     }
 
     public void onMeClick() {

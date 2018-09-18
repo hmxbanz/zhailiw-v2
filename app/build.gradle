@@ -6,7 +6,7 @@ android {
         applicationId "com.zhailiw.app"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 20180914
+        versionCode 20170914
         versionName "1.0.5.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -72,6 +72,7 @@ dependencies {
     implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
     //滑动listview 删除
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    implementation 'com.leeiidesu:permission-helper:1.1.3'
 }
 MobSDK {
     appKey "259113d838515"
