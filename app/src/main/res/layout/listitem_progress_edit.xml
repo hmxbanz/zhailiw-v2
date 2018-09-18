@@ -47,7 +47,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <TextView
-                style="@style/TitleStyle"
                 android:id="@+id/txt_name"
                 android:text="名称"
                 android:layout_width="match_parent"

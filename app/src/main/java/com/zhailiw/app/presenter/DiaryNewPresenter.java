@@ -259,7 +259,7 @@ public class DiaryNewPresenter extends BasePresenter implements OnDataListener, 
             DialogWithYesOrNoUtils.getInstance().showDialog(context, "提交成功", new AlertDialogCallBack() {
                 @Override
                 public void executeEvent() {
-                    DiaryDetailActivity.StartActivity(context,processId,progressId,type);
+                    DiaryDetailActivity.StartActivity(context,processId,progressId,type,0);
                     activity.finish();
                 }
 

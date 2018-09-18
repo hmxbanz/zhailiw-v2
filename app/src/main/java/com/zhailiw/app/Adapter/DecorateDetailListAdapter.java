@@ -205,7 +205,7 @@ public class DecorateDetailListAdapter extends RecyclerView.Adapter<RecyclerView
             switch (v.getId())
             {
                 case R.id.layout:
-                            DiaryDetailActivity.StartActivity(context,data.getProcessID(),0,parentPosition);
+                            DiaryDetailActivity.StartActivity(context,data.getProcessID(),0,parentPosition,0);
                     break;
             }
         }

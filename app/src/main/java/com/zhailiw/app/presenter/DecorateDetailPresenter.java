@@ -11,7 +11,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhailiw.app.Adapter.DecorateDetailAdapter;
@@ -24,6 +23,7 @@ import com.zhailiw.app.server.HttpException;
 import com.zhailiw.app.server.async.OnDataListener;
 import com.zhailiw.app.server.response.DecorateDetailResponse;
 import com.zhailiw.app.server.response.DecorateListResponse;
+import com.zhailiw.app.server.response.HousePeopleResponse;
 import com.zhailiw.app.server.response.ProgressListResponse;
 import com.zhailiw.app.view.activity.DecorateDetailActivity;
 import com.zhailiw.app.widget.LoadDialog;
@@ -32,7 +32,6 @@ import com.zhailiw.app.widget.permissionLibrary.PermissionsResultAction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 
 public class DecorateDetailPresenter extends BasePresenter implements DecorateDetailAdapter.ItemClickListener, OnDataListener, SwipeRefreshLayout.OnRefreshListener {
@@ -42,7 +41,7 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
     private RecyclerView recycleView;
     private DecorateDetailAdapter dataAdapter;
     private GridLayoutManager gridLayoutManager;
-    private static final int GETDECORATE = 1, GETDECORATELIST = 2, GETPROGRESSLIST = 3;
+    private static final int GETDECORATE = 1, GETDECORATELIST = 2, GETPROGRESSLIST = 3,GETHOUSEPEOPLE=4;
     private final List<DecorateDetailResponse.DataBean> list = new ArrayList<>();
     private SwipeRefreshLayout swiper;
     private boolean isClick = true;
@@ -63,6 +62,7 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
         ;
         this.swiper.setOnRefreshListener(this);
         dataAdapter = new DecorateDetailAdapter(activity);
+        dataAdapter.setRoleId(this.roleId);
         dataAdapter.setListItems(list);
         View header = LayoutInflater.from(activity).inflate(R.layout.listitem_decorate_detail_header, null);
         dataAdapter.setHeaderView(header);
@@ -88,6 +88,8 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
                 return userAction.getDecorateList(processId + "");
             case GETPROGRESSLIST:
                 return userAction.getProgressList(processId + "");
+            case GETHOUSEPEOPLE:
+                return userAction.getHousePeoples(houseId + "");
         }
         return null;
     }
@@ -103,12 +105,24 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
                 if (decorateDetailResponse.getState() == Const.SUCCESS) {
                     if (decorateDetailResponse.getData().size() == 0) {
                     } else {
-                        list.addAll(decorateDetailResponse.getData());
-                        this.recycleView.setAdapter(dataAdapter);
+                        list.addAll(decorateDetailResponse.getData());//取列表后再取联系人
+                        atm.request(GETHOUSEPEOPLE,this);
                         //dataAdapter.notifyDataSetChanged();
                     }
                 } else
                     NToast.shortToast(context, decorateDetailResponse.getMsg());
+
+                break;
+            case GETHOUSEPEOPLE:
+                HousePeopleResponse housePeopleResponse = (HousePeopleResponse) result;
+                if (housePeopleResponse.getState() == Const.SUCCESS) {
+                    if (housePeopleResponse.getData().size() == 0) {
+                    } else {
+                        dataAdapter.setHeaderList(housePeopleResponse.getData());
+                        this.recycleView.setAdapter(dataAdapter);
+                    }
+                } else
+                    NToast.shortToast(context, housePeopleResponse.getMsg());
 
                 break;
             case GETDECORATELIST:
@@ -195,18 +209,33 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
     }
 
     @Override
-    public void onPhoneClick(View v, DecorateDetailResponse.DataBean item,int role) {
-        if(item.getDesingerCellPhone()==null || item.getWorkerCellPhone()==null || item.getSellerCellPhone()==null){
+    public void onPhoneClick(DecorateDetailAdapter.HeaderHolder v, DecorateDetailResponse.DataBean item, int role) {
+        if(v.getTxtDesignerCellphone().getText()==null ){
+            NToast.shortToast(context,"手机号未填写，拔打失败。");
+            return;
+        }
+        if(v.getTxtWorkerCellphone().getText()==null ){
+            NToast.shortToast(context,"手机号未填写，拔打失败。");
+            return;
+        }
+        if(v.getTxtSellerCellphone().getText()==null ){
             NToast.shortToast(context,"手机号未填写，拔打失败。");
             return;
         }
 
-        if(role==1)
-            callPhone(item.getDesingerCellPhone().trim());
-        else if(role==2)
-            callPhone(item.getWorkerCellPhone().trim());
-        else if(role==3)
-            callPhone(item.getSellerCellPhone().trim());
+            switch (role){
+                case 1:
+                    callPhone(v.getTxtDesignerCellphone().getText().toString().trim());
+                    break;
+                case 2:
+                    callPhone(v.getTxtWorkerCellphone().getText().toString().trim());
+                    break;
+                case 3:
+                    callPhone(v.getTxtSellerCellphone().getText().toString().trim());
+                    break;
+            }
+
+
     }
 
     /**
@@ -222,7 +251,6 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
                 new PermissionsResultAction() {
                     @Override
                     public void onGranted() {
-
                     }
 
                     @Override

@@ -8,7 +8,7 @@ public class ProgressListResponse {
     /**
      * state : 1
      * msg : 成功
-     * data : [{"ProgressID":1,"Name":"泥","CreateDate":"/Date(1534521600000)/","StartDate":"/Date(1535731200000)/","EndDate":"/Date(1537372800000)/","ProcessID":4,"Order":null},{"ProgressID":2,"Name":"木","CreateDate":"/Date(1534521600000)/","StartDate":"/Date(1536163200000)/","EndDate":"/Date(1537372800000)/","ProcessID":4,"Order":null},{"ProgressID":3,"Name":"漆","CreateDate":"/Date(1534521600000)/","StartDate":"/Date(1536336000000)/","EndDate":"/Date(1537718400000)/","ProcessID":4,"Order":null}]
+     * data : [{"ProgressID":13,"Name":"付款提示","CreateDate":"/Date(1535949376817)/","StartDate":"/Date(1539100800000)/","EndDate":"/Date(1541865600000)/","ProcessID":4,"Order":2,"State":null,"StateName":null,"DoneDate":null},{"ProgressID":12,"Name":"楼梯","CreateDate":"/Date(1535884593763)/","StartDate":"/Date(1519833600000)/","EndDate":"/Date(1541001600000)/","ProcessID":4,"Order":3,"State":null,"StateName":null,"DoneDate":null},{"ProgressID":9,"Name":"木","CreateDate":"/Date(1535609707573)/","StartDate":"/Date(1483200000000)/","EndDate":"/Date(1522512000000)/","ProcessID":4,"Order":4,"State":null,"StateName":null,"DoneDate":null},{"ProgressID":11,"Name":"水","CreateDate":"/Date(1535780209237)/","StartDate":"/Date(1517414400000)/","EndDate":"/Date(1525104000000)/","ProcessID":4,"Order":5,"State":329,"StateName":"已完成","DoneDate":null},{"ProgressID":5,"Name":"泥","CreateDate":"/Date(1535609051670)/","StartDate":"/Date(1514736000000)/","EndDate":"/Date(1519833600000)/","ProcessID":4,"Order":6,"State":null,"StateName":null,"DoneDate":null}]
      */
 
     private int state;
@@ -41,13 +41,16 @@ public class ProgressListResponse {
 
     public static class DataBean {
         /**
-         * ProgressID : 1
-         * Name : 泥
-         * CreateDate : /Date(1534521600000)/
-         * StartDate : /Date(1535731200000)/
-         * EndDate : /Date(1537372800000)/
+         * ProgressID : 13
+         * Name : 付款提示
+         * CreateDate : /Date(1535949376817)/
+         * StartDate : /Date(1539100800000)/
+         * EndDate : /Date(1541865600000)/
          * ProcessID : 4
-         * Order : null
+         * Order : 2
+         * State : null
+         * StateName : null
+         * DoneDate : null
          */
 
         private int ProgressID;
@@ -57,6 +60,9 @@ public class ProgressListResponse {
         private String EndDate;
         private int ProcessID;
         private int Order;
+        private int State;
+        private String StateName;
+        private String DoneDate;
 
         public int getProgressID() {
             return ProgressID;
@@ -112,6 +118,30 @@ public class ProgressListResponse {
 
         public void setOrder(int Order) {
             this.Order = Order;
+        }
+
+        public int getState() {
+            return State;
+        }
+
+        public void setState(int State) {
+            this.State = State;
+        }
+
+        public String getStateName() {
+            return StateName;
+        }
+
+        public void setStateName(String StateName) {
+            this.StateName = StateName;
+        }
+
+        public String getDoneDate() {
+            return DoneDate;
+        }
+
+        public void setDoneDate(String DoneDate) {
+            this.DoneDate = DoneDate;
         }
     }
 }

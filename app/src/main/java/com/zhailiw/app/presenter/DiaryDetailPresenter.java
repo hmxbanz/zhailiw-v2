@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import com.zhailiw.app.Adapter.DiaryDetailAdapter;
 import com.zhailiw.app.Const;
@@ -25,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiaryDetailPresenter extends BasePresenter implements OnDataListener, View.OnClickListener,DiaryDetailAdapter.ItemClickListener {
-    private static final int GETDIAYDETAIL = 1,GETDIAYDETAILFORGROGRESS=2,SETISTOP = 3,SETDELETE=4;
-    private final int processId,progressId,fromType;
+    private static final int GETDIAYDETAIL = 1,GETDIAYDETAILFORGROGRESS=2,SETISTOP = 3,SETDELETE=4,SETSTATE=5,SETPROCESSSTATE=6;
+    private final int processId,progressId,fromType,progressState;
     private RecyclerView recyclerView;
     private DiaryDetailActivity activity;
     private int diaryType;
@@ -35,6 +36,7 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
     private GridLayoutManager gridLayoutManager;
     private View layoutEmpty;
     private DecorateListResponse.DataBean itemData;
+    private Button btnSubmit;
 
     public DiaryDetailPresenter(Context context){
         super(context);
@@ -43,19 +45,42 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
         processId=intent.getIntExtra("processId",0);
         progressId=intent.getIntExtra("progressId",0);
         fromType=intent.getIntExtra("fromType",0);
+        progressState=intent.getIntExtra("progressState",0);
     }
 
     public void init() {
         this.recyclerView = activity.findViewById(R.id.recyclerView);
         this.layoutEmpty = activity.findViewById(R.id.layout_empty);
+        this.btnSubmit=activity.findViewById(R.id.btn_new_diary);
+        this.btnSubmit.setOnClickListener(this);
 
-        activity.findViewById(R.id.btn_new_diary).setOnClickListener(this);
         dataAdapter=new DiaryDetailAdapter(activity);
         dataAdapter.setListItems(list);
         dataAdapter.setOnItemClickListener(this);
+        if(roleId==13 && progressId!=0)
+        {
+            this.btnSubmit.setText("确认施工完成!");
+            dataAdapter.setRoleId(this.roleId);
+        }
+
+        if(progressState ==329)//已完成
+        {
+            this.btnSubmit.setText("已完成!");
+            this.btnSubmit.setOnClickListener(null);
+        }
+
+        if(roleId==15)//
+        {
+            dataAdapter.setRoleId(this.roleId);
+            this.btnSubmit.setVisibility(View.INVISIBLE);
+        }
+
+
         gridLayoutManager=new GridLayoutManager(context,1);
         this.recyclerView.setLayoutManager(gridLayoutManager);
         this.recyclerView.setAdapter(dataAdapter);
+
+
         checkRequestType();
     }
 
@@ -82,6 +107,10 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
                 return userAction.updateWorkLogState(itemData.getProcessDetailID()+"","1");
             case SETDELETE:
                 return userAction.updateWorkLogState(itemData.getProcessDetailID()+"","3");
+            case SETSTATE:
+                return userAction.setProgressState(progressId+"","329");
+            case SETPROCESSSTATE:
+                return userAction.setProcessState(processId+"","329");
         }
         return null;
     }
@@ -116,6 +145,15 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
                     NToast.shortToast(context, commonResponse.getMsg());
 
                 break;
+            case SETSTATE:
+            case SETPROCESSSTATE:
+                CommonResponse commonResponse2 = (CommonResponse) result;
+                if (commonResponse2.getState() == Const.SUCCESS) {
+                    this.btnSubmit.setEnabled(false);
+                }
+                NToast.shortToast(context, commonResponse2.getMsg());
+
+                break;
 
         }
     }
@@ -124,6 +162,18 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_new_diary:
+                if (roleId == 13 && progressId!=0) {
+                    DialogWithYesOrNoUtils.getInstance().showDialog(context, "是否确认", new AlertDialogCallBack() {
+                        @Override
+                        public void executeEvent() {
+                            if(processId==0)
+                                atm.request(SETSTATE, DiaryDetailPresenter.this);
+                            else
+                                atm.request(SETPROCESSSTATE, DiaryDetailPresenter.this);
+                        }
+                    });
+                    return;
+                }
                 if(processId==0)
                     DiaryNewActivity.StartActivity(context,0,progressId,fromType);
                 else

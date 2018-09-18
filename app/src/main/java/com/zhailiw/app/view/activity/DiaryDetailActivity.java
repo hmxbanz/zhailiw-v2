@@ -24,11 +24,12 @@ public class DiaryDetailActivity extends BaseActivity implements View.OnClickLis
         presenter.init();
         NineGridView.setImageLoader(new GlideImageLoaderForNineGridView());
     }
-    public static void StartActivity(Context context,int processId,int progressId,int fromType) {
+    public static void StartActivity(Context context,int processId,int progressId,int fromType,int progressState ) {
         Intent intent = new Intent(context, DiaryDetailActivity.class);
         intent.putExtra("processId", processId);
         intent.putExtra("progressId", progressId);
         intent.putExtra("fromType", fromType);
+        intent.putExtra("progressState", progressState);
         context.startActivity(intent);
     }
 

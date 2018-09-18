@@ -1,9 +1,11 @@
 package com.zhailiw.app.Adapter;
 
 import android.content.Context;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhailiw.app.R;
@@ -13,6 +15,7 @@ import com.zhailiw.app.widget.draglist.AD_DragBase;
 
 public class ProgressEditAdapter extends AD_DragBase<ProgressListResponse.DataBean> {
 
+    private final Context context;
     LayoutInflater inflater;
     private TextView txtDel;
     private ItemClickListener listener;
@@ -23,6 +26,7 @@ public class ProgressEditAdapter extends AD_DragBase<ProgressListResponse.DataBe
 
     public ProgressEditAdapter(Context context) {
         super(context);
+        this.context=context;
         inflater=LayoutInflater.from(context);
     }
     public interface ItemClickListener {
@@ -35,7 +39,11 @@ public class ProgressEditAdapter extends AD_DragBase<ProgressListResponse.DataBe
         View item=inflater.inflate(R.layout.listitem_progress_edit,null);
         final ProgressListResponse.DataBean entity=ts.get(position);
         TextView txtName= (TextView) item.findViewById(R.id.txt_name);
+        TextPaint tp = txtName.getPaint();
+        tp.setFakeBoldText(true);
         TextView txtDate= (TextView) item.findViewById(R.id.txt_date);
+        TextView txtDoneDate= (TextView) item.findViewById(R.id.txt_done_date);
+        ImageView iconState = item.findViewById(R.id.img_state);
         txtDel= (TextView) item.findViewById(R.id.txt_del);
         txtDel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +57,18 @@ public class ProgressEditAdapter extends AD_DragBase<ProgressListResponse.DataBe
                 listener.onItemClick(v,entity);
             }
         });
+        txtDoneDate.setText("完工日期："+CommonTools.formatDateTime4(entity.getDoneDate()));
+        switch (entity.getState()) {
+            case 318:
+                iconState.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_not_start));
+                break;
+            case 319:
+                iconState.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_working));
+                break;
+            case 329:
+                iconState.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done));
+                break;
+        }
         txtDate.setText("施工周期："+ CommonTools.formatDateTime2(entity.getStartDate())+" 至 "+CommonTools.formatDateTime2(entity.getEndDate()));
         txtName.setText(entity.getName());
         //Toast.makeText(MainActivity.this,tv.getText(),Toast.LENGTH_SHORT).show();

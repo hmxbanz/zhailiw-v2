@@ -5,6 +5,7 @@ import android.content.Context;
 import com.alibaba.fastjson.JSONException;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.zhailiw.app.Const;
 import com.zhailiw.app.common.NToast;
 import com.zhailiw.app.common.json.JsonMananger;
 import com.zhailiw.app.server.request.AddAddressRequest;
@@ -25,6 +26,7 @@ import com.zhailiw.app.server.response.FavorResponse;
 import com.zhailiw.app.server.response.GalleryPicResponse;
 import com.zhailiw.app.server.response.GalleryResponse;
 import com.zhailiw.app.server.response.HouseDetailResponse;
+import com.zhailiw.app.server.response.HousePeopleResponse;
 import com.zhailiw.app.server.response.LoginResponse;
 import com.zhailiw.app.server.response.OrderDetailResponse;
 import com.zhailiw.app.server.response.ProductResponse;
@@ -321,7 +323,7 @@ public class UserAction extends BaseAction {
 
     //版本检查
     public VersionResponse checkVersion() throws HttpException {
-        String uri ="http://api.zhailiw.com/version.txt";
+        String uri = Const.GETVERSION;
         LinkedHashMap map=new LinkedHashMap<>();
         return getRequest(VersionResponse.class,map,uri);
     }
@@ -449,6 +451,30 @@ public class UserAction extends BaseAction {
         map.put("realName",realName);
         map.put("cellphone",cellphone);
         return getRequest(CommonResponse.class,map,uri);
+    }
+    //设置装修进程状态
+    public CommonResponse setProcessState(String processId,String state) throws HttpException{
+        String uri = getURL("User/updateProcessState");
+        LinkedHashMap map=new LinkedHashMap<>();
+        map.put("processId",processId);
+        map.put("state",state);
+        return getRequest(CommonResponse.class,map,uri);
+    }
+    //设计施工流程状态
+    public CommonResponse setProgressState(String progressId,String state) throws HttpException{
+        String uri = getURL("User/updateProgressState");
+        LinkedHashMap map=new LinkedHashMap<>();
+        map.put("progressId",progressId);
+        map.put("state",state);
+        return getRequest(CommonResponse.class,map,uri);
+    }
+
+    //取装修相关人员
+    public HousePeopleResponse getHousePeoples(String houseId) throws HttpException{
+        String uri = getURL("User/getHousePeoples");
+        LinkedHashMap map=new LinkedHashMap<>();
+        map.put("houseId",houseId);
+        return getRequest(HousePeopleResponse.class,map,uri);
     }
 
     //get请求

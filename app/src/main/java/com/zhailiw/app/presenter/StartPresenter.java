@@ -1,28 +1,40 @@
 package com.zhailiw.app.presenter;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.zhailiw.app.Const;
 import com.zhailiw.app.common.CommonTools;
+import com.zhailiw.app.common.NToast;
+import com.zhailiw.app.listener.AlertDialogCallBack;
 import com.zhailiw.app.server.HttpException;
 import com.zhailiw.app.server.response.SystemObjResponse;
+import com.zhailiw.app.server.response.VersionResponse;
 import com.zhailiw.app.view.activity.DecorateActivity;
 import com.zhailiw.app.view.activity.GuideActivity;
 import com.zhailiw.app.view.activity.LoginFirstActivity;
 import com.zhailiw.app.view.activity.MainActivity;
 import com.zhailiw.app.view.activity.StartActivity;
 import com.zhailiw.app.widget.ACache;
+import com.zhailiw.app.widget.DialogWithYesOrNoUtils;
 import com.zhailiw.app.widget.LoadDialog;
+import com.zhailiw.app.widget.downloadService.DownloadService;
+import com.zhailiw.app.widget.permissionLibrary.PermissionsManager;
+import com.zhailiw.app.widget.permissionLibrary.PermissionsResultAction;
+
+import static com.zhailiw.app.common.CommonTools.getVersionInfo;
 
 
 public class StartPresenter extends BasePresenter {
     private static final int GETSYSTEMOBJ = 1036;
     private static final int GETCITIES = 1037;
+    private static final int CHECKVERSION = 1038;
     private StartActivity activity;
     private Handler hand = new Handler() {
         public void handleMessage(Message msg) {
@@ -80,6 +92,8 @@ public class StartPresenter extends BasePresenter {
         switch (requestCode) {
             case GETSYSTEMOBJ:
                 return userAction.getSystemObj();
+            case CHECKVERSION:
+                return userAction.checkVersion();
         }
         return null;
     }
@@ -108,6 +122,45 @@ public class StartPresenter extends BasePresenter {
                     }.start();
                 }
                 break;
+            case CHECKVERSION:
+                VersionResponse versionResponse = (VersionResponse) result;
+                if (versionResponse.getState() == Const.SUCCESS) {
+                    final VersionResponse.ResultEntity entity=versionResponse.getAndroid();
+                    String[] versionInfo = getVersionInfo(activity);
+                    int versionCode = Integer.parseInt(versionInfo[0]);
+                    if(entity.getVersionCode()>versionCode)
+                    {
+                        DialogWithYesOrNoUtils dialog=DialogWithYesOrNoUtils.getInstance();
+                        dialog.showDialog(activity, "发现新版本:"+entity.getVersionName(), new AlertDialogCallBack(){
+                            @Override
+                            public void executeEvent() {
+                                goToDownload(entity.getDownloadUrl());
+                            }
+                        });
+                        dialog.setContent(entity.getVersionInfo());
+                    }
+                }else {
+                    NToast.shortToast(activity, "版本检测："+versionResponse.getMsg());
+                }
+                break;
         }
+    }
+    private void goToDownload(final String apkUrl) {
+        //权限申请
+        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(activity,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionsResultAction() {
+                    @Override
+                    public void onGranted() {
+                        Intent intent=new Intent(activity,DownloadService.class);
+                        intent.putExtra("url", apkUrl);
+                        activity.startService(intent);
+                    }
+
+                    @Override
+                    public void onDenied(String permission) {
+                        Toast.makeText(context, "获取权限失败，请点击后允许获取", Toast.LENGTH_SHORT).show();
+                    }
+                }, true);
+
     }
 }

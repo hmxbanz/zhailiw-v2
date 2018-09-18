@@ -75,8 +75,7 @@ public class MainPresenter extends BasePresenter {
         switch (requestCode) {
 //            case AUTOLOGIN:
 //                return userAction.login(userName, password,null,"");
-            case CHECKVERSION:
-                return userAction.checkVersion();
+
         }
         return null;
     }
@@ -94,28 +93,6 @@ public class MainPresenter extends BasePresenter {
                     NToast.shortToast(activity, "登录："+commonResponse.getMsg());
                 }
                 break;
-            case CHECKVERSION:
-                VersionResponse versionResponse = (VersionResponse) result;
-                if (versionResponse.getState() == Const.SUCCESS) {
-                    final VersionResponse.ResultEntity entity=versionResponse.getAndroid();
-                    String[] versionInfo = getVersionInfo(activity);
-                    int versionCode = Integer.parseInt(versionInfo[0]);
-                    if(entity.getVersionCode()>versionCode)
-                    {
-                        DialogWithYesOrNoUtils dialog=DialogWithYesOrNoUtils.getInstance();
-                        dialog.showDialog(activity, "发现新版本:"+entity.getVersionName(), new AlertDialogCallBack(){
-                            @Override
-                            public void executeEvent() {
-                                goToDownload(entity.getDownloadUrl());
-                            }
-                        });
-                        dialog.setContent(entity.getVersionInfo());
-                    }
-                }else {
-                    NToast.shortToast(activity, "版本检测："+versionResponse.getMsg());
-                }
-                break;
-
         }
 
     }
@@ -152,25 +129,6 @@ public class MainPresenter extends BasePresenter {
 //        activity.editor.putBoolean(XtdConst.ISLOGIN, false);//退出改登录标记
 //        activity.editor.commit();
 //        basePresenter.initData();
-    }
-
-    private void goToDownload(final String apkUrl) {
-        //权限申请
-        PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(activity,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionsResultAction() {
-                    @Override
-                    public void onGranted() {
-                        Intent intent=new Intent(activity,DownloadService.class);
-                        intent.putExtra("url", apkUrl);
-                        activity.startService(intent);
-                    }
-
-                    @Override
-                    public void onDenied(String permission) {
-                        Toast.makeText(context, "获取权限失败，请点击后允许获取", Toast.LENGTH_SHORT).show();
-                    }
-                }, true);
-
     }
 
     public void reStart(Intent intent) {

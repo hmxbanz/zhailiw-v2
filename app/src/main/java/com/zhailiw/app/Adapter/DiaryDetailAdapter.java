@@ -36,6 +36,7 @@ public class DiaryDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private RecyclerView mRecyclerView;
     private GlideImageLoader glideImageLoader;
     private Context context;
+    private int roleId;
 
     public void setOnItemClickListener(ItemClickListener listener) {
         mListener = listener;
@@ -117,6 +118,11 @@ public class DiaryDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 dataHolder.layoutView.setBackgroundColor(context.getResources().getColor(R.color.white));
                 dataHolder.txtToTop.setVisibility(View.VISIBLE);
                 dataHolder.txtDelete.setText("作废");
+            }
+
+            if(roleId !=0){
+                dataHolder.txtToTop.setVisibility(View.INVISIBLE);
+                dataHolder.txtDelete.setVisibility(View.INVISIBLE);
             }
 
             ArrayList<ImageInfo> imageInfo=new ArrayList<>();
@@ -233,6 +239,10 @@ public class DiaryDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return mHeaderView == null ? position : position - 1;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     public interface ItemClickListener {

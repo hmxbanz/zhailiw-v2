@@ -42,7 +42,7 @@ public class DecoratePresenter extends BasePresenter  {
             activity.finish();
         }
 
-        NToast.shortToast(context,basePresenter.roleId+"");
+        //NToast.shortToast(context,basePresenter.roleId+"");
         TabLayout tabLayout =  activity.findViewById(R.id.tabLayout);
         viewpager =  activity.findViewById(R.id.viewpager);
         fragments = new ArrayList<>();

@@ -31,6 +31,7 @@ public class ProgressEditActivity extends BaseActivity implements View.OnClickLi
     private void initViews() {
         findViewById(R.id.layout_back).setOnClickListener(this);
         findViewById(R.id.btn_new_progress).setOnClickListener(this);
+        findViewById(R.id.btn_commit).setOnClickListener(this);
         ((TextView)findViewById(R.id.txt_title)).setText("施工流程");
            }
 
@@ -42,6 +43,9 @@ public class ProgressEditActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.btn_new_progress:
                 presenter.toProgressNewActivity();
+                break;
+            case R.id.btn_commit:
+                presenter.setCommit();
         }
     }
 

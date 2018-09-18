@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
         <include layout="@layout/layout_title_top" />
         <com.zhailiw.app.widget.draglist.DragListView
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="70dp"
             android:layout_marginBottom="30dp"
             android:id="@+id/drag_list"
             android:layout_width="match_parent"
@@ -20,11 +20,25 @@
             android:dividerHeight="1px"
             android:fadingEdge="none"
             android:listSelector="#00000000"/>
-        <Button
-            style="@style/ButtonStyleRadius"
-            android:id="@+id/btn_new_progress"
+        <LinearLayout
             android:layout_alignParentBottom="true"
-            android:text="新增施工项" />
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                style="@style/ButtonStyleRadius"
+                android:id="@+id/btn_new_progress"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="新增施工项" />
+            <Button
+                style="@style/ButtonStyleRadius"
+                android:id="@+id/btn_commit"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="确认流程" />
+        </LinearLayout>
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

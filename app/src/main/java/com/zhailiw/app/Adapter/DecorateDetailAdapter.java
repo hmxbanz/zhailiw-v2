@@ -3,7 +3,6 @@ package com.zhailiw.app.Adapter;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import com.zhailiw.app.R;
 import com.zhailiw.app.loader.GlideImageLoader;
 import com.zhailiw.app.server.response.DecorateDetailResponse;
 import com.zhailiw.app.server.response.DecorateListResponse;
+import com.zhailiw.app.server.response.HousePeopleResponse;
 import com.zhailiw.app.view.activity.DecoratePeopleActivity;
 import com.zhailiw.app.view.activity.DiaryNewActivity;
 import com.zhailiw.app.view.activity.ProgressEditActivity;
@@ -36,6 +36,8 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private RecyclerView mRecyclerView;
     private GlideImageLoader glideImageLoader;
     private Context context;
+    private int roleId;
+    private List<HousePeopleResponse.DataBean> headerList;
 
     public void setOnItemClickListener(ItemClickListener listener) {
         mListener = listener;
@@ -88,21 +90,31 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         final int pos = getRealPosition(holder);
 
         if (holder instanceof HeaderHolder) {
-            DecorateDetailResponse.DataBean item = listItems.get(0);
             final HeaderHolder headerHolder = (HeaderHolder) holder;
-            headerHolder.setData(item);
-            if(item.getDesingerRealName() !=null)
-            headerHolder.txtDesignerName.setText(item.getDesingerRealName().trim());
-            if(item.getDesingerCellPhone() !=null)
-            headerHolder.txtDesignerCellphone.setText(item.getDesingerCellPhone().trim());
-            if(item.getWorkerRealName() !=null)
-            headerHolder.txtWorkerName.setText(item.getWorkerRealName().trim());
-            if(item.getWorkerCellPhone() !=null)
-            headerHolder.txtWorkerCellphone.setText(item.getWorkerCellPhone().trim());
-            if(item.getSellerRealName() !=null)
-            headerHolder.txtSellerName.setText(item.getSellerRealName().trim());
-            if(item.getSellerCellPhone() !=null)
-            headerHolder.txtSellerCellphone.setText(item.getSellerCellPhone().trim());
+            final DecorateDetailResponse.DataBean listItem = listItems.get(0);
+            headerHolder.setData(listItem);
+            if (headerList !=null)
+            {
+                for (HousePeopleResponse.DataBean bean :
+                        headerList) {
+                    if (bean.getRoleID()==13)
+                    {
+                        headerHolder.txtDesignerName.setText(bean.getRealName().trim());
+                        headerHolder.txtDesignerCellphone.setText(bean.getCellPhone().trim());
+                    }
+                    else if(bean.getRoleID()==14)
+                    {
+                        headerHolder.txtWorkerName.setText(bean.getRealName().trim());
+                        headerHolder.txtWorkerCellphone.setText(bean.getCellPhone().trim());
+                    }
+                    else if(bean.getRoleID()==16)
+                    {
+                        headerHolder.txtSellerName.setText(bean.getRealName().trim());
+                        headerHolder.txtSellerCellphone.setText(bean.getCellPhone().trim());
+                    }
+
+                }
+            }
         }
 
         if(getItemViewType(position) == TYPE_HEADER) return;
@@ -116,24 +128,62 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             switch (pos) {
                 case 0:
                     dataHolder.txtTips.setText("点击上传设计方案");
+                    if(roleId==14 ){
+                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
+                        dataHolder.txtTips.setOnClickListener(null);
+                        dataHolder.txtTips.setText("");
+                    }
+                    else if(roleId==15){
+                        dataHolder.txtTips.setOnClickListener(null);
+                        dataHolder.txtTips.setText("");
+                    }
                     break;
                 case 1:
                     dataHolder.txtTips.setText("点击上传预算方案");
+                    if(roleId==14 ){
+                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
+                        dataHolder.txtTips.setOnClickListener(null);
+                        dataHolder.txtTips.setText("");
+                    }
+                    else if(roleId==15){
+                        dataHolder.txtTips.setOnClickListener(null);
+                        dataHolder.txtTips.setText("");
+                    }
+
                     break;
                 case 2:
                     dataHolder.txtTips.setText("点击上传合同");
+                    if(roleId==14 ){
+                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
+                        dataHolder.txtTips.setOnClickListener(null);
+                        dataHolder.txtTips.setText("");
+                    }
+                    else if(roleId==15){
+                        dataHolder.txtTips.setOnClickListener(null);
+                        dataHolder.txtTips.setText("");
+                    }
+
                     break;
                 case 3:
                     dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_edit));
                     dataHolder.txtTips.setText("等待施工上传施工流程");
+                    if(roleId==15 || (roleId==13 && listItem.getProcessState()==319)|| (roleId==14 && listItem.getProcessState()==327) )//待确认
+                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
                     mListener.onProcessLoadding(dataHolder, listItem);
                     break;
                 case 4:
                     dataHolder.txtTips.setText("点击上传验收单");
+                    if(roleId==14){
+                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
+                        dataHolder.txtTips.setOnClickListener(null);
+                        dataHolder.txtTips.setText("");
+                    }
+                    else if(roleId==15){
+                        dataHolder.txtTips.setOnClickListener(null);
+                        dataHolder.txtTips.setText("");
+                    }
                     break;
             }
-
-
             if (mListener == null) return;
         }
     }
@@ -189,11 +239,19 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return mHeaderView == null ? position : position - 1;
     }
 
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public void setHeaderList(List<HousePeopleResponse.DataBean> headerList) {
+        this.headerList = headerList;
+    }
+
     public interface ItemClickListener {
         void onItemClick(View v, DecorateDetailResponse.DataBean item);
         void onImgArrowClick(DataHolder dataHolder, DecorateDetailResponse.DataBean item,DecorateListResponse listResponse,int position);
         void onProcessLoadding(DataHolder dataHolder, DecorateDetailResponse.DataBean item);
-        void onPhoneClick(View v,DecorateDetailResponse.DataBean item,int role);
+        void onPhoneClick(HeaderHolder v, DecorateDetailResponse.DataBean item, int role);
     }
 
 
@@ -213,7 +271,7 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         tips.setText("我是有底线的");
     }
 
-    class HeaderHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
+    public class HeaderHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
         private DecorateDetailResponse.DataBean data;
         private TextView txtDesignerName,txtWorkerName,txtSellerName;
         private TextView txtDesignerCellphone,txtWorkerCellphone,txtSellerCellphone;
@@ -221,6 +279,19 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public void setData(DecorateDetailResponse.DataBean data) {
             this.data = data;
         }
+
+        public TextView getTxtDesignerCellphone() {
+            return txtDesignerCellphone;
+        }
+
+        public TextView getTxtWorkerCellphone() {
+            return txtWorkerCellphone;
+        }
+
+        public TextView getTxtSellerCellphone() {
+            return txtSellerCellphone;
+        }
+
         public HeaderHolder(View itemView) {
             super(itemView);
             txtDesignerName =  itemView.findViewById(R.id.txt_designer_name);
@@ -245,21 +316,24 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             switch (v.getId())
             {
                 case R.id.btn_designer:
-                mListener.onPhoneClick(v,data,1);
+                mListener.onPhoneClick(this,data,1);
                 break;
                 case R.id.btn_worker:
-                    mListener.onPhoneClick(v,data,2);
+                    mListener.onPhoneClick(this,data,2);
                     break;
                 case R.id.btn_seller:
-                    mListener.onPhoneClick(v,data,3);
+                    mListener.onPhoneClick(this,data,3);
                     break;
                 case R.id.layout_designer:
-                    DecoratePeopleActivity.StartActivity(context,1,data.getDecorateID(),data.getDesingerRealName(),data.getDesingerCellPhone());
+                    if(roleId==16)
+                        DecoratePeopleActivity.StartActivity(context,1,data.getDecorateID(),data.getDesingerRealName(),data.getDesingerCellPhone());
                     break;
                 case R.id.layout_worker:
+                    if(roleId==16)
                     DecoratePeopleActivity.StartActivity(context,2,data.getDecorateID(), data.getWorkerRealName(),data.getWorkerCellPhone());
                     break;
                 case R.id.layout_seller:
+                    if(roleId==16)
                     DecoratePeopleActivity.StartActivity(context,3,data.getDecorateID(),data.getSellerRealName(),data.getSellerCellPhone());
                     break;
             }

@@ -2,30 +2,28 @@ package com.zhailiw.app.presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.zhailiw.app.Adapter.ProgressEditAdapter;
 import com.zhailiw.app.Const;
 import com.zhailiw.app.R;
 import com.zhailiw.app.common.NToast;
+import com.zhailiw.app.listener.AlertDialogCallBack;
 import com.zhailiw.app.server.HttpException;
 import com.zhailiw.app.server.async.OnDataListener;
 import com.zhailiw.app.server.response.CommonResponse;
 import com.zhailiw.app.server.response.ProgressListResponse;
 import com.zhailiw.app.view.activity.ProgressEditActivity;
 import com.zhailiw.app.view.activity.ProgressNewActivity;
+import com.zhailiw.app.widget.DialogWithYesOrNoUtils;
 import com.zhailiw.app.widget.LoadDialog;
-import com.zhailiw.app.widget.draglist.AD_DragBase;
 import com.zhailiw.app.widget.draglist.DragListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProgressListPresenter extends BasePresenter implements OnDataListener,ProgressEditAdapter.ItemClickListener,DragListView.ItemMoveListener {
-    private static final int GETPROGRESSLIST = 1,UPDATEORDER=2,DELPROGRESS=3;
+    private static final int GETPROGRESSLIST = 1,UPDATEORDER=2,DELPROGRESS=3,SETCOMMIT=4,SETCOMMITBYSELLER=5,SETCOMMITFAILURE=6;
     private final int processId;
     private ProgressEditActivity activity;
     private DragListView drag_list;
@@ -60,6 +58,12 @@ public class ProgressListPresenter extends BasePresenter implements OnDataListen
                 return userAction.updateProgressOrder(newNew.getProgressID()+"", newNew.getOrder()+"", oldOld.getProgressID()+"", oldOld.getOrder()+"");
             case DELPROGRESS:
                 return userAction.delProgress(progressId+"");
+            case SETCOMMIT:
+                return userAction.setProcessState(processId+"","327");//施工流程监工确认
+            case SETCOMMITBYSELLER:
+                return userAction.setProcessState(processId+"","319");//施工流程业务确认
+            case SETCOMMITFAILURE:
+                return userAction.setProcessState(processId+"","318");//施工流程业务确认
         }
         return null;
     }
@@ -100,6 +104,14 @@ public class ProgressListPresenter extends BasePresenter implements OnDataListen
                 }else
                     NToast.shortToast(context, commonResponse2.getMsg());
                 break;
+            case SETCOMMIT:
+            case SETCOMMITBYSELLER:
+            case SETCOMMITFAILURE:
+                CommonResponse commonResponse3 = (CommonResponse) result;
+                if (commonResponse3.getState() == Const.SUCCESS) {
+                }
+                    NToast.shortToast(context, commonResponse3.getMsg());
+                break;
         }
     }
 
@@ -137,5 +149,31 @@ public class ProgressListPresenter extends BasePresenter implements OnDataListen
     public void onItemClick(View v, ProgressListResponse.DataBean entity) {
         progressId=entity.getProgressID();
         ProgressNewActivity.StartActivity(context,processId,entity);
+    }
+
+    public void setCommit() {
+        DialogWithYesOrNoUtils dialog = DialogWithYesOrNoUtils.getInstance();
+        dialog.showDialog(context, "是否确认", new AlertDialogCallBack() {
+            @Override
+            public void executeEvent() {
+                LoadDialog.show(context);
+                if(roleId==14)//监工
+                    atm.request(SETCOMMIT,ProgressListPresenter.this);
+                else
+                    atm.request(SETCOMMITBYSELLER,ProgressListPresenter.this);
+            }
+
+            @Override
+            public void onCancle() {
+                super.onCancle();
+                if(roleId==13 || roleId==16)//业务
+                    atm.request(SETCOMMITFAILURE,ProgressListPresenter.this);
+            }
+        });
+        if(roleId==13 || roleId==16)//业务
+        {
+            dialog.setCancleText("不通过");
+            dialog.setConfirmText("通过");
+        }
     }
 }
