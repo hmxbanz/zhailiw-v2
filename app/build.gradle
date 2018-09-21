@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "com.zhailiw.app"
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 25
         versionCode 20170914
         versionName "1.0.5.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
