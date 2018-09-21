@@ -39,7 +39,7 @@ public class DecorateDoneFragment extends Fragment  {
     @Override
     public void onStart() {
         super.onStart();
-        presenter.onRefresh();
+        //presenter.onRefresh();
     }
 
     private void initViews() {

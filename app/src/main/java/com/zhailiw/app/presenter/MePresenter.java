@@ -28,6 +28,7 @@ import com.zhailiw.app.server.broadcast.BroadcastManager;
 import com.zhailiw.app.server.response.CheckWxQqResponse;
 import com.zhailiw.app.server.response.CommonResponse;
 import com.zhailiw.app.server.response.UserInfoResponse;
+import com.zhailiw.app.view.activity.LoginFirstActivity;
 import com.zhailiw.app.view.activity.MainActivity;
 import com.zhailiw.app.view.activity.MeActivity;
 import com.zhailiw.app.widget.BottomMenuDialog;
@@ -284,7 +285,7 @@ public class MePresenter extends BasePresenter implements OnDataListener{
             editor.putBoolean(Const.ISLOGIN, false);
             editor.apply();
             initData();
-            MainActivity.StartActivity(mActivity,0);
+            LoginFirstActivity.StartActivity(mActivity);
     }
     public void onYearMonthDayPicker(View view) {
         final DatePicker picker = new DatePicker(mActivity);

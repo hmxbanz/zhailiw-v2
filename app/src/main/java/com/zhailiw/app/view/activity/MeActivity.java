@@ -1,5 +1,6 @@
 package com.zhailiw.app.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,6 +46,12 @@ public class MeActivity extends BaseActivity implements View.OnClickListener {
         txtSex =  findViewById(R.id.txt_sex);
         txtSex.setOnClickListener(this);
     }
+    public static void StartActivity(Context context) {
+        Intent intent = new Intent(context, MeActivity.class);
+        context.startActivity(intent);
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

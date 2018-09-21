@@ -4,24 +4,15 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
 import com.leeiidesu.permission.PermissionHelper;
 import com.zhailiw.app.Const;
 import com.zhailiw.app.common.NToast;
-import com.zhailiw.app.listener.AlertDialogCallBack;
 import com.zhailiw.app.server.HttpException;
 import com.zhailiw.app.server.response.CommonResponse;
-import com.zhailiw.app.server.response.VersionResponse;
 import com.zhailiw.app.view.activity.LoginFirstActivity;
 import com.zhailiw.app.view.activity.MainActivity;
-import com.zhailiw.app.widget.DialogWithYesOrNoUtils;
 import com.zhailiw.app.widget.LoadDialog;
-import com.zhailiw.app.widget.downloadService.DownloadService;
-import com.zhailiw.app.widget.permissionLibrary.PermissionsManager;
-import com.zhailiw.app.widget.permissionLibrary.PermissionsResultAction;
-
-import static com.zhailiw.app.common.CommonTools.getVersionInfo;
 
 
 

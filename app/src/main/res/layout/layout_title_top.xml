@@ -22,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true">
-
                 <RelativeLayout
                     android:id="@+id/ll"
                     android:layout_marginBottom="2dp"
@@ -69,7 +68,15 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             >
-
+            <ImageView
+                android:id="@+id/img_right"
+                android:visibility="gone"
+                android:src="@drawable/icon_me"
+                android:scaleType="centerInside"
+                android:tint="@android:color/tertiary_text_light"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"/>
             <TextView
                 android:gravity="center"
                 android:id="@+id/txt_right"

@@ -13,6 +13,7 @@ import com.zhailiw.app.R;
 import com.zhailiw.app.common.NToast;
 import com.zhailiw.app.loader.GlideImageLoader;
 import com.zhailiw.app.server.response.DecorateAllResponse;
+import com.zhailiw.app.view.activity.DecorateDetailActivity;
 import com.zhailiw.app.view.activity.HouseDetailActivity;
 import com.zhailiw.app.widget.progressBar.MaterialProgressBar;
 
@@ -89,7 +90,6 @@ public class DecorateAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             dataHolder.txtHouseName.setText(listItem.getHouseName());
             dataHolder.txtAddress.setText(listItem.getAddress());
             dataHolder.txtBudget.setText("预算:" + listItem.getBudget());
-            //dataHolder.txtBudget.setText("风格:" );
 
             if (mListener == null) return;
         }
@@ -194,7 +194,8 @@ public class DecorateAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             switch (v.getId())
             {
                 case R.id.layout:
-                    HouseDetailActivity.StartActivity(context,data.getHouseId());
+                    //HouseDetailActivity.StartActivity(context,data.getHouseId());
+                    DecorateDetailActivity.StartActivity(context,data.getHouseId());
                     //NToast.longToast(context,data.getAddress());
             }
         }
