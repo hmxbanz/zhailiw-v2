@@ -29,8 +29,6 @@ import com.zhailiw.app.server.response.HousePeopleResponse;
 import com.zhailiw.app.server.response.ProgressListResponse;
 import com.zhailiw.app.view.activity.DecorateDetailActivity;
 import com.zhailiw.app.widget.LoadDialog;
-import com.zhailiw.app.widget.permissionLibrary.PermissionsManager;
-import com.zhailiw.app.widget.permissionLibrary.PermissionsResultAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +46,6 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
     private SwipeRefreshLayout swiper;
     private boolean isClick = true;
     private RecyclerView recyclerViewDataHolder;
-    private DecorateDetailResponse.DataBean DetailRespon;
     private DecorateDetailAdapter.DataHolder holder;
     private String phoneNum;
 
@@ -133,7 +130,18 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
                 if (decorateListResponse.getState() == Const.SUCCESS) {
                     if (decorateListResponse.getData().size() == 0) {
                     } else {
-                        onImgArrowClick(holder, DetailRespon, decorateListResponse, position);
+                        //onImgArrowClick(holder, DetailRespon, decorateListResponse, position);
+
+                        //
+                        //装入item
+                        DecorateDetailListAdapter listAdapter = new DecorateDetailListAdapter(context);
+                        listAdapter.setParentPosition(position);
+                        listAdapter.setListItems(decorateListResponse.getData());
+                        recyclerViewDataHolder.setAdapter(listAdapter);
+                        recyclerViewDataHolder.setNestedScrollingEnabled(false);
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
+                        recyclerViewDataHolder.setLayoutManager(gridLayoutManager);
+
                     }
                 } else
                     NToast.shortToast(context, decorateListResponse.getMsg());
@@ -149,7 +157,6 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
                         recyclerViewDataHolder.setLayoutManager(gridLayoutManager);
                         ProgressListAdapter listAdapter = new ProgressListAdapter(context);
                         listAdapter.setListItems(progressListResponse.getData());
-                        listAdapter.notifyDataSetChanged();
                         recyclerViewDataHolder.setAdapter(listAdapter);
                         recyclerViewDataHolder.setNestedScrollingEnabled(false);
                         holder.getTxtTips().setVisibility(View.GONE);
@@ -167,7 +174,7 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
     }
 
     @Override
-    public void onImgArrowClick(DecorateDetailAdapter.DataHolder dataHolder, DecorateDetailResponse.DataBean item, DecorateListResponse listResponse, int position) {
+    public void onImgArrowClick(DecorateDetailAdapter.DataHolder dataHolder, DecorateDetailResponse.DataBean item, int position) {
         if (holder != dataHolder) {
             isClick = true;
         }
@@ -175,36 +182,25 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
         this.position = position;
         holder = dataHolder;
         recyclerViewDataHolder = holder.getRecyclerView();
-        DetailRespon = item;
-        if (listResponse == null) {
-            atm.request(GETDECORATELIST, DecorateDetailPresenter.this);
-            return;
-        }
 
         if (isClick == true) {
+            item.setName("展开");
             dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_up));
             isClick = false;
             recyclerViewDataHolder.setVisibility(View.VISIBLE);
+            atm.request(GETDECORATELIST, DecorateDetailPresenter.this);
+            return;
+
         } else {
+            item.setName("收起");
             dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_down));
             isClick = true;
             recyclerViewDataHolder.setVisibility(View.GONE);
         }
-
-        //装入item
-        DecorateDetailListAdapter listAdapter = new DecorateDetailListAdapter(context);
-        listAdapter.setParentPosition(position);
-        listAdapter.setListItems(listResponse.getData());
-        listAdapter.notifyDataSetChanged();
-        recyclerViewDataHolder.setAdapter(listAdapter);
-        recyclerViewDataHolder.setNestedScrollingEnabled(false);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
-        recyclerViewDataHolder.setLayoutManager(gridLayoutManager);
-
     }
 
     @Override
-    public void onProcessLoadding(DecorateDetailAdapter.DataHolder dataHolder, DecorateDetailResponse.DataBean item) {
+    public void onProgressLoadding(DecorateDetailAdapter.DataHolder dataHolder, DecorateDetailResponse.DataBean item) {
         this.processId = item.getProcessID();
         holder = dataHolder;
         recyclerViewDataHolder = holder.getRecyclerView();

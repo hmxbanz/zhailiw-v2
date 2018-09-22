@@ -43,8 +43,8 @@
                   android:id="@+id/img_down"
                   android:src="@drawable/icon_down"
                   android:layout_weight="1"
-                  android:layout_width="15dp"
-                  android:layout_height="15dp" />
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" />
           </LinearLayout>
 
           <TextView

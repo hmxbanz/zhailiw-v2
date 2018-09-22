@@ -49,10 +49,10 @@ public class DecoratePeoplePresenter extends BasePresenter implements OnDataList
                 this.txtTypeName.setText("设计师");
                 break;
             case 2:
-                this.txtTypeName.setText("监工");
+                this.txtTypeName.setText("监理");
                 break;
             case 3:
-                this.txtTypeName.setText("业务员");
+                this.txtTypeName.setText("客户经理");
                 break;
 
         }

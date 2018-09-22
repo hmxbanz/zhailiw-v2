@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.zhailiw.app.R;
 import com.zhailiw.app.loader.GlideImageLoader;
 import com.zhailiw.app.server.response.DecorateDetailResponse;
-import com.zhailiw.app.server.response.DecorateListResponse;
 import com.zhailiw.app.server.response.HousePeopleResponse;
 import com.zhailiw.app.view.activity.DecoratePeopleActivity;
 import com.zhailiw.app.view.activity.DiaryNewActivity;
@@ -118,71 +117,109 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
 
         if(getItemViewType(position) == TYPE_HEADER) return;
+        //holder.setIsRecyclable(false);
         final DecorateDetailResponse.DataBean listItem = listItems.get(pos);
         if (holder instanceof DataHolder) {
             final DataHolder dataHolder = (DataHolder) holder;
             dataHolder.setData(listItem);
             dataHolder.setPosition(position);
-            dataHolder.txtName.setText(pos + 1 + ":" + listItem.getProcessName());
+            //dataHolder.txtName.setText(pos + 1 + ":" + listItem.getProcessName());
             dataHolder.txtState.setText(listItem.getProcessStateName());
+//            if(listItem.getProcessName()=="施工流程")
+//                listItem.setName("展开");
+
+            if(listItem.getName()=="展开"){
+                dataHolder.getRecyclerView().setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                dataHolder.getRecyclerView().setVisibility(View.GONE);
+            }
+
             switch (pos) {
                 case 0:
-                    dataHolder.txtTips.setText("点击上传设计方案");
-                    if(roleId==14 ){
-                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
-                        dataHolder.txtTips.setOnClickListener(null);
-                        dataHolder.txtTips.setText("");
-                    }
-                    else if(roleId==15){
-                        dataHolder.txtTips.setOnClickListener(null);
-                        dataHolder.txtTips.setText("");
-                    }
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_01));
                     break;
                 case 1:
-                    dataHolder.txtTips.setText("点击上传预算方案");
-                    if(roleId==14 ){
-                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
-                        dataHolder.txtTips.setOnClickListener(null);
-                        dataHolder.txtTips.setText("");
-                    }
-                    else if(roleId==15){
-                        dataHolder.txtTips.setOnClickListener(null);
-                        dataHolder.txtTips.setText("");
-                    }
-
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_02));
                     break;
                 case 2:
-                    dataHolder.txtTips.setText("点击上传合同");
-                    if(roleId==14 ){
-                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
-                        dataHolder.txtTips.setOnClickListener(null);
-                        dataHolder.txtTips.setText("");
-                    }
-                    else if(roleId==15){
-                        dataHolder.txtTips.setOnClickListener(null);
-                        dataHolder.txtTips.setText("");
-                    }
-
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_03));
                     break;
                 case 3:
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_04));
+                    break;
+                case 4:
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_05));
+                    break;
+                case 5:
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_06));
+                    break;
+                case 6:
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_07));
+                    break;
+                case 7:
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_08));
+                    break;
+                case 8:
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_09));
+                    break;
+                case 9:
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_10));
+                    break;
+                case 10:
+                    dataHolder.layoutView.setBackground(context.getResources().getDrawable(R.drawable.title_bg_11));
+                    break;
+            }
+
+
+            switch (listItem.getProcessName()) {
+                case "装修设计":
+//                    dataHolder.txtTips.setText("点击上传设计方案");
+//                    if(roleId==14 ){
+//                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
+//                        dataHolder.txtTips.setOnClickListener(null);
+//                        dataHolder.txtTips.setText("");
+//                    }
+//                    else if(roleId==15){
+//                        dataHolder.txtTips.setOnClickListener(null);
+//                        dataHolder.txtTips.setText("");
+//                    }
+                    break;
+                case "装修预算":
+//                    dataHolder.txtTips.setText("点击上传预算方案");
+//                    if(roleId==14 ){
+//                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
+//                        dataHolder.txtTips.setOnClickListener(null);
+//                        dataHolder.txtTips.setText("");
+//                    }
+//                    else if(roleId==15){
+//                        dataHolder.txtTips.setOnClickListener(null);
+//                        dataHolder.txtTips.setText("");
+//                    }
+                    break;
+                case "装修合同":
+//                    dataHolder.txtTips.setText("点击上传合同");
+//                    if(roleId==14 ){
+//                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
+//                        dataHolder.txtTips.setOnClickListener(null);
+//                        dataHolder.txtTips.setText("");
+//                    }
+//                    else if(roleId==15){
+//                        dataHolder.txtTips.setOnClickListener(null);
+//                        dataHolder.txtTips.setText("");
+//                    }
+
+                    break;
+                case "施工流程":
+                    dataHolder.getRecyclerView().setVisibility(View.VISIBLE);
                     dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_edit));
                     dataHolder.txtTips.setText("等待施工上传施工流程");
                     if(roleId==15 || (roleId==13 && listItem.getProcessState()==319)|| (roleId==14 && listItem.getProcessState()==327) )//待确认
                         dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
-                    mListener.onProcessLoadding(dataHolder, listItem);
+                    mListener.onProgressLoadding(dataHolder, listItem);
                     break;
-                case 4:
-                    dataHolder.txtTips.setText("点击上传验收单");
-                    if(roleId==14){
-                        dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
-                        dataHolder.txtTips.setOnClickListener(null);
-                        dataHolder.txtTips.setText("");
-                    }
-                    else if(roleId==15){
-                        dataHolder.txtTips.setOnClickListener(null);
-                        dataHolder.txtTips.setText("");
-                    }
-                    break;
+
             }
             if (mListener == null) return;
         }
@@ -249,8 +286,8 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public interface ItemClickListener {
         void onItemClick(View v, DecorateDetailResponse.DataBean item);
-        void onImgArrowClick(DataHolder dataHolder, DecorateDetailResponse.DataBean item,DecorateListResponse listResponse,int position);
-        void onProcessLoadding(DataHolder dataHolder, DecorateDetailResponse.DataBean item);
+        void onImgArrowClick(DataHolder dataHolder, DecorateDetailResponse.DataBean item, int position);
+        void onProgressLoadding(DataHolder dataHolder, DecorateDetailResponse.DataBean item);
         void onPhoneClick(HeaderHolder v, DecorateDetailResponse.DataBean item, int role);
     }
 
@@ -316,7 +353,7 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             switch (v.getId())
             {
                 case R.id.btn_designer:
-                mListener.onPhoneClick(this,data,1);
+                    mListener.onPhoneClick(this,data,1);
                 break;
                 case R.id.btn_worker:
                     mListener.onPhoneClick(this,data,2);
@@ -325,15 +362,15 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     mListener.onPhoneClick(this,data,3);
                     break;
                 case R.id.layout_designer:
-                    if(roleId==16)
+                    if(roleId==16 || roleId==13)
                         DecoratePeopleActivity.StartActivity(context,1,data.getDecorateID(),data.getDesingerRealName(),data.getDesingerCellPhone());
                     break;
                 case R.id.layout_worker:
-                    if(roleId==16)
+                    if(roleId==16 || roleId==13)
                     DecoratePeopleActivity.StartActivity(context,2,data.getDecorateID(), data.getWorkerRealName(),data.getWorkerCellPhone());
                     break;
                 case R.id.layout_seller:
-                    if(roleId==16)
+                    if(roleId==16 || roleId==13)
                     DecoratePeopleActivity.StartActivity(context,3,data.getDecorateID(),data.getSellerRealName(),data.getSellerCellPhone());
                     break;
             }
@@ -359,6 +396,7 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             return txtTips;
         }
 
+        private int isExpand=1;
 
         public DataHolder(View itemView) {
             super(itemView);
@@ -381,10 +419,10 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     break;
                 case R.id.img_arrow:
                     //发请求
-                    if(position==4)
+                    if(position==5)
                         ProgressEditActivity.StartActivity(context,data.getProcessID());
                         else
-                        mListener.onImgArrowClick(this,data,null,position);
+                        mListener.onImgArrowClick(this,data,position);
                     break;
                 case R.id.txt_tips:
                         DiaryNewActivity.StartActivity(context,data.getProcessID(),0,position);

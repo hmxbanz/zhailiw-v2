@@ -59,11 +59,11 @@ public class ProgressListPresenter extends BasePresenter implements OnDataListen
             case DELPROGRESS:
                 return userAction.delProgress(progressId+"");
             case SETCOMMIT:
-                return userAction.setProcessState(processId+"","327");//施工流程监工确认
+                return userAction.setProcessState(processId+"","327");//施工流程监理确认
             case SETCOMMITBYSELLER:
-                return userAction.setProcessState(processId+"","319");//施工流程业务确认
+                return userAction.setProcessState(processId+"","319");//施工流程客户经理确认
             case SETCOMMITFAILURE:
-                return userAction.setProcessState(processId+"","318");//施工流程业务确认
+                return userAction.setProcessState(processId+"","318");//施工流程客户经理确认
         }
         return null;
     }
@@ -157,7 +157,7 @@ public class ProgressListPresenter extends BasePresenter implements OnDataListen
             @Override
             public void executeEvent() {
                 LoadDialog.show(context);
-                if(roleId==14)//监工
+                if(roleId==14)//监理
                     atm.request(SETCOMMIT,ProgressListPresenter.this);
                 else
                     atm.request(SETCOMMITBYSELLER,ProgressListPresenter.this);
@@ -166,11 +166,11 @@ public class ProgressListPresenter extends BasePresenter implements OnDataListen
             @Override
             public void onCancle() {
                 super.onCancle();
-                if(roleId==13 || roleId==16)//业务
+                if(roleId==13 || roleId==16)//客户经理
                     atm.request(SETCOMMITFAILURE,ProgressListPresenter.this);
             }
         });
-        if(roleId==13 || roleId==16)//业务
+        if(roleId==13 || roleId==16)//客户经理
         {
             dialog.setCancleText("不通过");
             dialog.setConfirmText("通过");

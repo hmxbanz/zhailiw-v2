@@ -39,12 +39,13 @@ public class DecorateAllFragmentPresenter extends BasePresenter implements Decor
         dataAdapter.setOnItemClickListener(this);
     }
 
-    public void init(RecyclerView recyclerView, SwipeRefreshLayout swiper) {
+    public void init(RecyclerView recyclerView, final SwipeRefreshLayout swiper) {
         this.recycleView =recyclerView;
         this.swiper=swiper;
         this.swiper.setOnRefreshListener(this);
         this.recycleView.setAdapter(dataAdapter);
-        this.recycleView.setNestedScrollingEnabled(false);
+        this.recycleView.setNestedScrollingEnabled(true);
+
         gridLayoutManager=new GridLayoutManager(context,1);
         this.recycleView.setLayoutManager(gridLayoutManager);
     }

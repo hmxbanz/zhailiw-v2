@@ -8,7 +8,7 @@ public class HousePeopleResponse {
     /**
      * state : 1
      * msg : 成功
-     * data : [{"DecorateClientID":1,"HouseID":16,"UserInfoID":1475,"Type":null,"CreateDate":null,"NickName":"幸运欣","RealName":"幸运欣","CellPhone":"13729213015         ","RoleName":"设计师","RoleID":13},{"DecorateClientID":3,"HouseID":16,"UserInfoID":1479,"Type":null,"CreateDate":null,"NickName":"昵称","RealName":"工头","CellPhone":"13729213010","RoleName":"监工","RoleID":14},{"DecorateClientID":2,"HouseID":16,"UserInfoID":1478,"Type":null,"CreateDate":null,"NickName":"赵子龙","RealName":"aliy","CellPhone":"15217614631","RoleName":"业务员","RoleID":16}]
+     * data : [{"DecorateClientID":1,"HouseID":16,"UserInfoID":1475,"Type":null,"CreateDate":null,"NickName":"幸运欣","RealName":"幸运欣","CellPhone":"13729213015         ","RoleName":"设计师","RoleID":13},{"DecorateClientID":3,"HouseID":16,"UserInfoID":1479,"Type":null,"CreateDate":null,"NickName":"昵称","RealName":"工头","CellPhone":"13729213010","RoleName":"监理","RoleID":14},{"DecorateClientID":2,"HouseID":16,"UserInfoID":1478,"Type":null,"CreateDate":null,"NickName":"赵子龙","RealName":"aliy","CellPhone":"15217614631","RoleName":"客户经理","RoleID":16}]
      */
 
     private int state;

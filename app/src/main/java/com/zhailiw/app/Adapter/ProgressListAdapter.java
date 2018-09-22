@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,16 +88,25 @@ public class ProgressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         if (getItemViewType(position) == TYPE_HEADER) return;
         final ProgressListResponse.DataBean listItem = listItems.get(pos);
+
+
+
+
+
         if (holder instanceof DataHolder) {
             final DataHolder dataHolder = (DataHolder) holder;
             dataHolder.setData(listItem);
             TextPaint tp = dataHolder.txtName.getPaint();
             tp.setFakeBoldText(true);
             dataHolder.txtName.setText(listItem.getName());
+            if(!TextUtils.isEmpty(listItem.getStateName()))
             dataHolder.txtState.setText(listItem.getStateName());
             dataHolder.txtDoneDate.setText("完工日期："+CommonTools.formatDateTime4(listItem.getDoneDate()));
             switch (listItem.getState()) {
                 case 318:
+                    if(listItem.getName().contains("付款"))
+                        dataHolder.iconState.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_no_pay));
+                    else
                         dataHolder.iconState.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_not_start));
                         break;
                     case 319:
@@ -106,6 +116,9 @@ public class ProgressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         dataHolder.iconState.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done));
                         break;
             }
+
+
+
             dataHolder.txtDate.setText("施工周期："+CommonTools.formatDateTime2(listItem.getStartDate())+" 至 "+CommonTools.formatDateTime2(listItem.getEndDate()));
 
             if (mListener == null) return;

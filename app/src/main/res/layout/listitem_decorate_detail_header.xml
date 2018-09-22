@@ -81,7 +81,7 @@
                 android:layout_height="20dp" />
             <TextView
                 android:textSize="10sp"
-                android:text="监工"
+                android:text="监理"
                 android:textColor="@color/mainColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -123,7 +123,7 @@
                 android:layout_height="20dp" />
             <TextView
                 android:textSize="10sp"
-                android:text="业务员"
+                android:text="客户经理"
                 android:textColor="@color/mainColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

@@ -57,7 +57,7 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
         dataAdapter=new DiaryDetailAdapter(activity);
         dataAdapter.setListItems(list);
         dataAdapter.setOnItemClickListener(this);
-        if(roleId==13 && progressId!=0)
+        if((roleId==13 ||roleId==16) && progressId!=0)
         {
             this.btnSubmit.setText("确认施工完成!");
             dataAdapter.setRoleId(this.roleId);
@@ -162,7 +162,7 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_new_diary:
-                if (roleId == 13 && progressId!=0) {
+                if ((roleId == 13 || roleId==16) && progressId!=0) {
                     DialogWithYesOrNoUtils.getInstance().showDialog(context, "是否确认", new AlertDialogCallBack() {
                         @Override
                         public void executeEvent() {
