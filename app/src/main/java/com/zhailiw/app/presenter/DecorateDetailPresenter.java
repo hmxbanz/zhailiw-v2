@@ -141,7 +141,7 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
                         recyclerViewDataHolder.setNestedScrollingEnabled(false);
                         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
                         recyclerViewDataHolder.setLayoutManager(gridLayoutManager);
-
+                        recyclerViewDataHolder.setVisibility(View.VISIBLE);
                     }
                 } else
                     NToast.shortToast(context, decorateListResponse.getMsg());
@@ -151,6 +151,7 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
                 ProgressListResponse progressListResponse = (ProgressListResponse) result;
                 if (progressListResponse.getState() == Const.SUCCESS) {
                     if (progressListResponse.getData().size() == 0) {
+
                     } else {
                         //装入item
                         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
@@ -175,26 +176,28 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
 
     @Override
     public void onImgArrowClick(DecorateDetailAdapter.DataHolder dataHolder, DecorateDetailResponse.DataBean item, int position) {
-        if (holder != dataHolder) {
-            isClick = true;
-        }
+//        if (holder != dataHolder) {
+//            holder = dataHolder;
+//            item.setName("展开");
+//            recyclerViewDataHolder = holder.getRecyclerView();
+//        }
         this.processId = item.getProcessID();
         this.position = position;
-        holder = dataHolder;
-        recyclerViewDataHolder = holder.getRecyclerView();
-
-        if (isClick == true) {
+        recyclerViewDataHolder = dataHolder.getRecyclerView();
+        if (item.getName().contains("装修进程")) {
             item.setName("展开");
+        }
+
+
+
+        if (item.getName().contains("展开")) {
+            item.setName("收起");
             dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_up));
-            isClick = false;
-            recyclerViewDataHolder.setVisibility(View.VISIBLE);
             atm.request(GETDECORATELIST, DecorateDetailPresenter.this);
             return;
-
         } else {
-            item.setName("收起");
+            item.setName("展开");
             dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_down));
-            isClick = true;
             recyclerViewDataHolder.setVisibility(View.GONE);
         }
     }

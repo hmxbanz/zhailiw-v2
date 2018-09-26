@@ -128,7 +128,7 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 //            if(listItem.getProcessName()=="施工流程")
 //                listItem.setName("展开");
 
-            if(listItem.getName()=="展开"){
+            if(listItem.getName().contains("收起")){
                 dataHolder.getRecyclerView().setVisibility(View.VISIBLE);
             }
             else
