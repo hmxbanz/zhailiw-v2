@@ -39,6 +39,7 @@ public class DecorateAllFragment extends Fragment  {
     @Override
     public void onStart() {
         super.onStart();
+        if(presenter !=null)
         presenter.onRefresh();
     }
 

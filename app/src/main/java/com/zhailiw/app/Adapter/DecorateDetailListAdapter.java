@@ -35,6 +35,8 @@ public class DecorateDetailListAdapter extends RecyclerView.Adapter<RecyclerView
     private Context context;
     private int position;
     private int parentPosition;
+    private int roleId;
+    private int parentState;
 
     public void setParentPosition(int parentPosition) {
         this.parentPosition = parentPosition;
@@ -157,6 +159,14 @@ public class DecorateDetailListAdapter extends RecyclerView.Adapter<RecyclerView
         this.position = position;
     }
 
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public void setParentState(int parentState) {
+        this.parentState = parentState;
+    }
+
     public interface ItemClickListener {
         void onItemClick(View v, DecorateAllResponse.DataBean item);
     }
@@ -205,7 +215,8 @@ public class DecorateDetailListAdapter extends RecyclerView.Adapter<RecyclerView
             switch (v.getId())
             {
                 case R.id.layout:
-                            DiaryDetailActivity.StartActivity(context,data.getProcessID(),0,parentPosition,0);
+                    if(roleId !=14)
+                            DiaryDetailActivity.StartActivity(context,data.getProcessID(),0,parentPosition,parentState);
                     break;
             }
         }

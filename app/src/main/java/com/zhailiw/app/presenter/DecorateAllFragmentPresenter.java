@@ -14,6 +14,7 @@ import com.zhailiw.app.server.HttpException;
 import com.zhailiw.app.server.async.OnDataListener;
 import com.zhailiw.app.server.response.DecorateAllResponse;
 import com.zhailiw.app.view.activity.DecorateActivity;
+import com.zhailiw.app.view.activity.MainActivity;
 import com.zhailiw.app.widget.LoadDialog;
 
 import java.util.ArrayList;
@@ -28,12 +29,12 @@ public class DecorateAllFragmentPresenter extends BasePresenter implements Decor
     private SwipeRefreshLayout swiper;
     private DecorateAllAdapter dataAdapter;
     private GridLayoutManager gridLayoutManager;
-    private DecorateActivity activity;
+    private MainActivity activity;
     private int pageIndex=1,totalPages;
 
     public DecorateAllFragmentPresenter(Context context){
         super(context);
-        activity = (DecorateActivity) context;
+        activity = (MainActivity) context;
         dataAdapter = new DecorateAllAdapter(this.context);
         dataAdapter.setListItems(list);
         dataAdapter.setOnItemClickListener(this);

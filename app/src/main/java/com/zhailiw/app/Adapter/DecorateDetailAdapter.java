@@ -1,6 +1,7 @@
 package com.zhailiw.app.Adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.zhailiw.app.loader.GlideImageLoader;
 import com.zhailiw.app.server.response.DecorateDetailResponse;
 import com.zhailiw.app.server.response.HousePeopleResponse;
 import com.zhailiw.app.view.activity.DecoratePeopleActivity;
+import com.zhailiw.app.view.activity.DiaryDetailActivity;
 import com.zhailiw.app.view.activity.DiaryNewActivity;
 import com.zhailiw.app.view.activity.ProgressEditActivity;
 import com.zhailiw.app.widget.progressBar.MaterialProgressBar;
@@ -212,8 +214,9 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
                     break;
                 case "施工流程":
+                    dataHolder.getBtn_to_progress().setVisibility(View.VISIBLE);
                     dataHolder.getRecyclerView().setVisibility(View.VISIBLE);
-                    dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_edit));
+                    dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_up));
                     dataHolder.txtTips.setText("等待施工上传施工流程");
                     if(roleId==15 || (roleId==13 && listItem.getProcessState()==319)|| (roleId==14 && listItem.getProcessState()==327) )//待确认
                         dataHolder.getImgArrow().setVisibility(View.INVISIBLE);
@@ -379,12 +382,16 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public class DataHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        private TextView txtName,txtState,txtTips;
+        private TextView txtName,txtState,btn_to_progress,txtTips;
         private ImageView imgArrow;
         private LinearLayout layoutView;
         private RecyclerView recyclerView;
         private DecorateDetailResponse.DataBean data;
         private int position;
+
+        public TextView getBtn_to_progress() {
+            return btn_to_progress;
+        }
 
         public RecyclerView getRecyclerView() {
             return recyclerView;
@@ -396,12 +403,21 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             return txtTips;
         }
 
+        public int getListPosition() {
+            return position;
+        }
+
         private int isExpand=1;
 
         public DataHolder(View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txt_name);
             txtState =  itemView.findViewById(R.id.txt_state);
+            btn_to_progress =  itemView.findViewById(R.id.btn_to_progress);
+            Drawable drawable = context.getResources().getDrawable(R.drawable.icon_edit2);
+            drawable.setBounds(0,0,30,30);
+            btn_to_progress.setCompoundDrawables(drawable,null,null,null);
+            btn_to_progress.setOnClickListener(this);
             txtTips =  itemView.findViewById(R.id.txt_tips);
             imgArrow =  itemView.findViewById(R.id.img_arrow);
             imgArrow.setOnClickListener(this);
@@ -416,16 +432,21 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             switch (v.getId())
             {
                 case R.id.layout:
+                    if(position!=5 && roleId !=14)
+                    DiaryDetailActivity.StartActivity(context,data.getProcessID(),0,position,data.getProcessState());
+                    break;
+                case R.id.txt_tips:
+                    DiaryNewActivity.StartActivity(context,data.getProcessID(),0,position);
                     break;
                 case R.id.img_arrow:
                     //发请求
-                    if(position==5)
-                        ProgressEditActivity.StartActivity(context,data.getProcessID());
-                        else
+//                    if(position==5)
+//                        ProgressEditActivity.StartActivity(context,data.getProcessID());
+//                        else
                         mListener.onImgArrowClick(this,data,position);
                     break;
-                case R.id.txt_tips:
-                        DiaryNewActivity.StartActivity(context,data.getProcessID(),0,position);
+                case R.id.btn_to_progress:
+                        ProgressEditActivity.StartActivity(context,data.getProcessID());
                     break;
             }
         }

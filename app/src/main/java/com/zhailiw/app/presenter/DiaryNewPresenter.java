@@ -311,6 +311,12 @@ public class DiaryNewPresenter extends BasePresenter implements OnDataListener, 
                         listd.add(entity);
                     }
                     break;
+                default:
+                    if(entity.getId()==343)
+                    {
+                        bodyRange.add(entity.getName());
+                        listd.add(entity);
+                    }
 
             }
 

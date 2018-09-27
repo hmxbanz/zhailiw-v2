@@ -52,9 +52,10 @@
     <string name="de_dialog_item_message_delete">删除消息</string>
     <string name="register">用户注册</string>
     <string name="find_password">找回密码</string>
-    <string name="txt_home">图库</string>
-    <string name="txt_shop">商城</string>
-    <string name="txt_me">我的</string>
+    <string name="txt_design">设计</string>
+    <string name="txt_company">品牌合作</string>
+    <string name="txt_art">工艺展示</string>
+    <string name="txt_me">我的装修</string>
     <string name="add_new_address">增加新地址</string>
     <string name="str_pay">付款</string>
     <string name="str_buy">立即购买</string>

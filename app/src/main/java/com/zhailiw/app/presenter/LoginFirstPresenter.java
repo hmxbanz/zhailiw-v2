@@ -72,7 +72,7 @@ public class LoginFirstPresenter extends BasePresenter  {
                     UserInfoResponse userInfoResponse = (UserInfoResponse) result;
                     if ( userInfoResponse.getState()== Const.SUCCESS) {
                         setUserInfoWork(userInfoResponse.getData().getRoleID());
-                        DecorateActivity.StartActivity(activity);
+                        activity.finish();
                     }
                     else if(userInfoResponse.getState()== Const.FAILURE)
                     {NToast.shortToast(context, userInfoResponse.getMsg());

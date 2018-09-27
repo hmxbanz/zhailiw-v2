@@ -11,8 +11,7 @@ import com.zhailiw.app.Const;
 import com.zhailiw.app.common.CommonTools;
 import com.zhailiw.app.server.HttpException;
 import com.zhailiw.app.server.response.SystemObjResponse;
-import com.zhailiw.app.view.activity.DecorateActivity;
-import com.zhailiw.app.view.activity.LoginFirstActivity;
+import com.zhailiw.app.view.activity.MainActivity;
 import com.zhailiw.app.view.activity.StartActivity;
 import com.zhailiw.app.widget.ACache;
 import com.zhailiw.app.widget.LoadDialog;
@@ -26,13 +25,13 @@ public class StartPresenter extends BasePresenter  {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (CommonTools.isFristRun(activity)) {
-                Intent intent = new Intent(activity, LoginFirstActivity.class);
+                Intent intent = new Intent(activity, MainActivity.class);
                 activity.startActivity(intent);
                 activity.finish();
             }
             else
             {
-                Intent intent = new Intent(activity, DecorateActivity.class);
+                Intent intent = new Intent(activity, MainActivity.class);
                 activity.startActivity(intent);
                 activity.finish();
             }

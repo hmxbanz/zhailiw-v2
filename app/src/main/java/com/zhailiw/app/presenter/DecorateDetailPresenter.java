@@ -36,7 +36,7 @@ import java.util.List;
 
 public class DecorateDetailPresenter extends BasePresenter implements DecorateDetailAdapter.ItemClickListener, OnDataListener, SwipeRefreshLayout.OnRefreshListener, OnPermissionResultListener {
     private static final String TAG = DecorateDetailPresenter.class.getSimpleName();
-    private int houseId, processId, position;
+    private int houseId, processId, position,state;
     private DecorateDetailActivity activity;
     private RecyclerView recycleView;
     private DecorateDetailAdapter dataAdapter;
@@ -136,7 +136,10 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
                         //装入item
                         DecorateDetailListAdapter listAdapter = new DecorateDetailListAdapter(context);
                         listAdapter.setParentPosition(position);
+                        listAdapter.setParentState(state);
+
                         listAdapter.setListItems(decorateListResponse.getData());
+                        listAdapter.setRoleId(this.roleId);
                         recyclerViewDataHolder.setAdapter(listAdapter);
                         recyclerViewDataHolder.setNestedScrollingEnabled(false);
                         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
@@ -183,9 +186,15 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
 //        }
         this.processId = item.getProcessID();
         this.position = position;
+        this.state=item.getProcessState();
         recyclerViewDataHolder = dataHolder.getRecyclerView();
         if (item.getName().contains("装修进程")) {
             item.setName("展开");
+
+            if (dataHolder.getListPosition()==5) {
+                item.setName("收起");
+            }
+
         }
 
 
@@ -193,7 +202,12 @@ public class DecorateDetailPresenter extends BasePresenter implements DecorateDe
         if (item.getName().contains("展开")) {
             item.setName("收起");
             dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_up));
-            atm.request(GETDECORATELIST, DecorateDetailPresenter.this);
+            if (dataHolder.getListPosition()!=5) {
+                atm.request(GETDECORATELIST, DecorateDetailPresenter.this);
+            }
+            else
+                recyclerViewDataHolder.setVisibility(View.VISIBLE);
+
             return;
         } else {
             item.setName("展开");

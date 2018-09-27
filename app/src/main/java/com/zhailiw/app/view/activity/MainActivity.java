@@ -9,15 +9,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhailiw.app.R;
 import com.zhailiw.app.presenter.MainPresenter;
-import com.zhailiw.app.view.fragment.GalleryFragment;
+import com.zhailiw.app.view.fragment.CompanyFragment;
+import com.zhailiw.app.view.fragment.DesignerFragment;
+import com.zhailiw.app.view.fragment.MeFragment;
 import com.zhailiw.app.view.fragment.MineFragment;
-import com.zhailiw.app.view.fragment.ShopFragment;
+import com.zhailiw.app.view.fragment.WorkFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +28,16 @@ import static com.zhailiw.app.common.CommonTools.checkDeviceHasNavigationBar;
 public class MainActivity extends BaseActivity {
     private ViewPager viewPager;
     private List<Fragment> mFragments;
-    private ImageView mImageHome, mImageShop, mImageMe;
-    private TextView mTextHome,mTextShop,mTextMe;
+    private ImageView mImageDesign, mImageCompnay, mImageArt,mImageMe;
+    private TextView mTextDesign, mTextCompany,mTextArt,mTextMe;
     private MainPresenter mainPresenter;
+    private RelativeLayout designLayout, companyLayout,artLayout,meLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
         initMianViewPager();
-        changeTextViewColor();
         changeSelectedTabState(0);
         mainPresenter = new MainPresenter(this);
         mainPresenter.init(viewPager);
@@ -61,18 +62,21 @@ public class MainActivity extends BaseActivity {
             //lp.setMargins(0,0, 0, 0);
             rootView.setPadding(0,0,0,paddingParams);
         }
-        RelativeLayout homeLayout, shopLayout,meLayout;
-        homeLayout =  findViewById(R.id.tab_layout_home);
-        shopLayout =  findViewById(R.id.tab_layout_shop);
+        designLayout =  findViewById(R.id.tab_layout_design);
+        companyLayout =  findViewById(R.id.tab_layout_company);
+        artLayout =  findViewById(R.id.tab_layout_art);
         meLayout =  findViewById(R.id.tab_layout_me);
-        mImageHome = findViewById(R.id.tab_img_home);
-        mImageShop =  findViewById(R.id.tab_img_shop);
+        mImageDesign = findViewById(R.id.tab_img_design);
+        mImageCompnay =  findViewById(R.id.tab_img_company);
+        mImageArt =  findViewById(R.id.tab_img_art);
         mImageMe =  findViewById(R.id.tab_img_me);
-        mTextHome =  findViewById(R.id.tab_text_home);
-        mTextShop=findViewById(R.id.tab_text_shop);
+        mTextDesign =  findViewById(R.id.tab_text_design);
+        mTextCompany =findViewById(R.id.tab_text_company);
+        mTextArt =findViewById(R.id.tab_text_art);
         mTextMe = findViewById(R.id.tab_text_me);
-        homeLayout.setOnClickListener(this);
-        shopLayout.setOnClickListener(this);
+        designLayout.setOnClickListener(this);
+        companyLayout.setOnClickListener(this);
+        artLayout.setOnClickListener(this);
         meLayout.setOnClickListener(this);
         //请求权限Ｍａｉｎ
         //checkPermissions();
@@ -87,9 +91,10 @@ public class MainActivity extends BaseActivity {
         FragmentPagerAdapter mFragmentPagerAdapter; //将 tab  页面持久在内存中
         viewPager = findViewById(R.id.main_viewpager);
         mFragments = new ArrayList<>();
-        mFragments.add(GalleryFragment.getInstance());
-        mFragments.add(ShopFragment.getInstance());
-        mFragments.add(MineFragment.getInstance());
+        mFragments.add(DesignerFragment.getInstance());
+        mFragments.add(CompanyFragment.getInstance());
+        mFragments.add(WorkFragment.getInstance());
+        mFragments.add(MeFragment.getInstance());
         mFragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -101,31 +106,46 @@ public class MainActivity extends BaseActivity {
             }
         };
         viewPager.setAdapter(mFragmentPagerAdapter);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setOnPageChangeListener(new PageChangerListener());
         //initData();
     }
     private void changeTextViewColor() {
-        mImageHome.setImageDrawable(getResources().getDrawable(R.drawable.icon_design));
-        mImageShop.setImageDrawable(getResources().getDrawable(R.drawable.icon_shop));
+        mImageDesign.setImageDrawable(getResources().getDrawable(R.drawable.icon_design));
+        mImageCompnay.setImageDrawable(getResources().getDrawable(R.drawable.icon_company));
+        mImageArt.setImageDrawable(getResources().getDrawable(R.drawable.icon_art));
         mImageMe.setImageDrawable(getResources().getDrawable(R.drawable.icon_me));
-        mTextHome.setTextColor(Color.parseColor("#abadbb"));
-        mTextShop.setTextColor(Color.parseColor("#abadbb"));
-        mTextMe.setTextColor(Color.parseColor("#abadbb"));
+        mTextDesign.setTextColor(Color.parseColor("#464646"));
+        mTextCompany.setTextColor(Color.parseColor("#464646"));
+        mTextArt.setTextColor(Color.parseColor("#464646"));
+        mTextMe.setTextColor(Color.parseColor("#464646"));
+        designLayout.setBackgroundColor(Color.parseColor("#f9f9f9"));
+        companyLayout.setBackgroundColor(Color.parseColor("#f9f9f9"));
+        artLayout.setBackgroundColor(Color.parseColor("#f9f9f9"));
+        meLayout.setBackgroundColor(Color.parseColor("#f9f9f9"));
     }
     private void changeSelectedTabState(int position) {
+        changeTextViewColor();
         switch (position) {
             case 0:
-                mTextHome.setTextColor(Color.parseColor("#cdab7e"));
-                mImageHome.setImageDrawable(getResources().getDrawable(R.drawable.icon_design_on));
+                mTextDesign.setTextColor(Color.parseColor("#ffffff"));
+                mImageDesign.setImageDrawable(getResources().getDrawable(R.drawable.icon_design_on));
+                designLayout.setBackgroundColor(getResources().getColor(R.color.mainColor));
                 break;
             case 1:
-                mTextShop.setTextColor(Color.parseColor("#cdab7e"));
-                mImageShop.setImageDrawable(getResources().getDrawable(R.drawable.icon_shop_on));
+                mTextCompany.setTextColor(Color.parseColor("#ffffff"));
+                mImageCompnay.setImageDrawable(getResources().getDrawable(R.drawable.icon_company_on));
+                companyLayout.setBackgroundColor(getResources().getColor(R.color.mainColor));
                 break;
             case 2:
-                mTextMe.setTextColor(Color.parseColor("#cdab7e"));
+                mTextArt.setTextColor(Color.parseColor("#ffffff"));
+                mImageArt.setImageDrawable(getResources().getDrawable(R.drawable.icon_art_on));
+                artLayout.setBackgroundColor(getResources().getColor(R.color.mainColor));
+                break;
+            case 3:
+                mTextMe.setTextColor(Color.parseColor("#ffffff"));
                 mImageMe.setImageDrawable(getResources().getDrawable(R.drawable.icon_me_on));
+                meLayout.setBackgroundColor(getResources().getColor(R.color.mainColor));
                 break;
         }
     }
@@ -140,7 +160,6 @@ public class MainActivity extends BaseActivity {
 //            if(index==3){
 //                mainPresenter.onMeClick();
 //            }
-            changeTextViewColor();
             changeSelectedTabState(position);
             //GalleryFragment homeFragment= GalleryFragment.getInstance();
             //homeFragment.scrollView.smoothScrollTo(0, 0);
@@ -152,13 +171,17 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tab_layout_home:
+            case R.id.tab_layout_design:
                 viewPager.setCurrentItem(0, false);
                 break;
-            case R.id.tab_layout_shop:
+            case R.id.tab_layout_company:
                 viewPager.setCurrentItem(1, false);
                 break;
+            case R.id.tab_layout_art:
+                viewPager.setCurrentItem(2, false);
+                break;
             case R.id.tab_layout_me:
+                viewPager.setCurrentItem(3, false);
                 mainPresenter.onMeClick();
                 break;
         }

@@ -12,6 +12,7 @@ import com.zhailiw.app.server.response.LoginResponse;
 import com.zhailiw.app.server.response.UserInfoResponse;
 import com.zhailiw.app.view.activity.DecorateActivity;
 import com.zhailiw.app.view.activity.LoginActivity;
+import com.zhailiw.app.view.activity.MainActivity;
 import com.zhailiw.app.widget.LoadDialog;
 
 
@@ -84,7 +85,7 @@ public class LoginPresenter extends BasePresenter  {
                     UserInfoResponse userInfoResponse = (UserInfoResponse) result;
                     if ( userInfoResponse.getState()== Const.SUCCESS) {
                         setUserInfoWork(userInfoResponse.getData().getRoleID());
-                        DecorateActivity.StartActivity(activity);
+                        MainActivity.StartActivity(activity,0);
                         activity.finish();
                     }
                     else if(userInfoResponse.getState()== Const.FAILURE)

@@ -36,7 +36,7 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
     private GridLayoutManager gridLayoutManager;
     private View layoutEmpty;
     private DecorateListResponse.DataBean itemData;
-    private Button btnSubmit;
+    private Button btnNewDiary,btnCommit;
 
     public DiaryDetailPresenter(Context context){
         super(context);
@@ -51,28 +51,35 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
     public void init() {
         this.recyclerView = activity.findViewById(R.id.recyclerView);
         this.layoutEmpty = activity.findViewById(R.id.layout_empty);
-        this.btnSubmit=activity.findViewById(R.id.btn_new_diary);
-        this.btnSubmit.setOnClickListener(this);
+        this.btnNewDiary =activity.findViewById(R.id.btn_new_diary);
+        this.btnCommit =activity.findViewById(R.id.btn_commit);
+        this.btnNewDiary.setOnClickListener(this);
+        this.btnCommit.setOnClickListener(this);
 
         dataAdapter=new DiaryDetailAdapter(activity);
         dataAdapter.setListItems(list);
         dataAdapter.setOnItemClickListener(this);
         if((roleId==13 ||roleId==16) && progressId!=0)
         {
-            this.btnSubmit.setText("确认施工完成!");
+            this.btnNewDiary.setVisibility(View.GONE);
             dataAdapter.setRoleId(this.roleId);
+        }
+        else if((roleId==14 ) && progressId!=0)
+        {
+            this.btnCommit.setVisibility(View.GONE);
         }
 
         if(progressState ==329)//已完成
         {
-            this.btnSubmit.setText("已完成!");
-            this.btnSubmit.setOnClickListener(null);
+            this.btnCommit.setText("已完成");
+            this.btnCommit.setEnabled(false);
+            this.btnNewDiary.setVisibility(View.GONE);
         }
 
         if(roleId==15)//
         {
             dataAdapter.setRoleId(this.roleId);
-            this.btnSubmit.setVisibility(View.INVISIBLE);
+            this.btnNewDiary.setVisibility(View.INVISIBLE);
         }
 
 
@@ -149,7 +156,7 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
             case SETPROCESSSTATE:
                 CommonResponse commonResponse2 = (CommonResponse) result;
                 if (commonResponse2.getState() == Const.SUCCESS) {
-                    this.btnSubmit.setEnabled(false);
+                    this.btnNewDiary.setEnabled(false);
                 }
                 NToast.shortToast(context, commonResponse2.getMsg());
 
@@ -161,8 +168,8 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_new_diary:
-                if ((roleId == 13 || roleId==16) && progressId!=0) {
+            case R.id.btn_commit:
+                //if ((roleId == 13 || roleId==16) && progressId!=0) {
                     DialogWithYesOrNoUtils.getInstance().showDialog(context, "是否确认", new AlertDialogCallBack() {
                         @Override
                         public void executeEvent() {
@@ -172,8 +179,10 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
                                 atm.request(SETPROCESSSTATE, DiaryDetailPresenter.this);
                         }
                     });
-                    return;
-                }
+               // }
+                break;
+            case R.id.btn_new_diary:
+
                 if(processId==0)
                     DiaryNewActivity.StartActivity(context,0,progressId,fromType);
                 else
