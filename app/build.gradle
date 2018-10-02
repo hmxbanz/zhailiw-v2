@@ -2,13 +2,22 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 android {
     compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.zhailiw.app"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 20180914
+        versionCode 20181001
         versionName "1.0.5.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        zhaili {
+            storeFile file("../keystore.jks")
+            storePassword "zhailiw123"
+            keyAlias "zhaili"
+            keyPassword "zhailiw123"
+        }
     }
     sourceSets.main {
         jniLibs.srcDirs = ['libs'] // <-- Set your folder here!
@@ -18,15 +27,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    buildToolsVersion '27.0.3'
-    signingConfigs {
-        debug {
-            storeFile file("../keystore.jks")
-            storePassword "zhailiw123"
-            keyAlias "zhaili"
-            keyPassword "zhailiw123"
+            signingConfig signingConfigs.zhaili
         }
     }
 }

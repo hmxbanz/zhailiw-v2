@@ -214,6 +214,7 @@ public class DecorateDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
                     break;
                 case "施工流程":
+                    if(listItem.getProcessState()==318)
                     dataHolder.getBtn_to_progress().setVisibility(View.VISIBLE);
                     dataHolder.getRecyclerView().setVisibility(View.VISIBLE);
                     dataHolder.getImgArrow().setImageDrawable(context.getResources().getDrawable(R.drawable.icon_up));

@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiaryDetailPresenter extends BasePresenter implements OnDataListener, View.OnClickListener,DiaryDetailAdapter.ItemClickListener {
-    private static final int GETDIAYDETAIL = 1,GETDIAYDETAILFORGROGRESS=2,SETISTOP = 3,SETDELETE=4,SETSTATE=5,SETPROCESSSTATE=6;
-    private final int processId,progressId,fromType,progressState;
+    private static final int GETDIAYDETAIL = 1,GETDIAYDETAILFORGROGRESS=2,SETISTOP = 3,SETDELETE=4,SETSTATE=5,SETPROCESSSTATE=6,RESETISTOP=7;
+    private final int processId,progressId,fromType, taskState;
     private RecyclerView recyclerView;
     private DiaryDetailActivity activity;
     private int diaryType;
@@ -45,7 +45,7 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
         processId=intent.getIntExtra("processId",0);
         progressId=intent.getIntExtra("progressId",0);
         fromType=intent.getIntExtra("fromType",0);
-        progressState=intent.getIntExtra("progressState",0);
+        taskState =intent.getIntExtra("taskState",0);
     }
 
     public void init() {
@@ -59,17 +59,20 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
         dataAdapter=new DiaryDetailAdapter(activity);
         dataAdapter.setListItems(list);
         dataAdapter.setOnItemClickListener(this);
-        if((roleId==13 ||roleId==16) && progressId!=0)
+        dataAdapter.setTaskState(taskState);
+        if((roleId==13 ||roleId==16) && progressId!=0)//控制业务
         {
             this.btnNewDiary.setVisibility(View.GONE);
             dataAdapter.setRoleId(this.roleId);
         }
-        else if((roleId==14 ) && progressId!=0)
+        if((roleId==14 ) && progressId!=0)//控制监理
         {
             this.btnCommit.setVisibility(View.GONE);
+            if(taskState ==329)//已完成
+                this.btnCommit.setVisibility(View.VISIBLE);
         }
 
-        if(progressState ==329)//已完成
+        if(taskState ==329)//已完成
         {
             this.btnCommit.setText("已完成");
             this.btnCommit.setEnabled(false);
@@ -114,6 +117,8 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
                 return userAction.updateWorkLogState(itemData.getProcessDetailID()+"","1");
             case SETDELETE:
                 return userAction.updateWorkLogState(itemData.getProcessDetailID()+"","3");
+            case RESETISTOP:
+                return userAction.updateWorkLogState(itemData.getProcessDetailID()+"","4");
             case SETSTATE:
                 return userAction.setProgressState(progressId+"","329");
             case SETPROCESSSTATE:
@@ -144,6 +149,7 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
                 break;
             case SETISTOP:
             case SETDELETE:
+            case RESETISTOP:
                 CommonResponse commonResponse = (CommonResponse) result;
                 if (commonResponse.getState() == Const.SUCCESS) {
                     list.clear();
@@ -210,11 +216,24 @@ public class DiaryDetailPresenter extends BasePresenter implements OnDataListene
     @Override
     public void onToTopClick(DecorateListResponse.DataBean data) {
         this.itemData=data;
-        DialogWithYesOrNoUtils.getInstance().showDialog(context, "是否顶置", new AlertDialogCallBack() {
-            @Override
-            public void executeEvent() {
-                atm.request(SETISTOP, DiaryDetailPresenter.this);
-            }
-        });
+        if(data.getIsTop()>2)
+        {
+            DialogWithYesOrNoUtils.getInstance().showDialog(context, "是否取消置顶", new AlertDialogCallBack() {
+                @Override
+                public void executeEvent() {
+                    atm.request(RESETISTOP, DiaryDetailPresenter.this);
+                }
+            });
+        }
+        else
+        {
+            DialogWithYesOrNoUtils.getInstance().showDialog(context, "是否置顶", new AlertDialogCallBack() {
+                @Override
+                public void executeEvent() {
+                    atm.request(SETISTOP, DiaryDetailPresenter.this);
+                }
+            });
+        }
+
     }
 }

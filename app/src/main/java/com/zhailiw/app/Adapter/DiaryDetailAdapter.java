@@ -37,6 +37,7 @@ public class DiaryDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private GlideImageLoader glideImageLoader;
     private Context context;
     private int roleId;
+    private int taskState;
 
     public void setOnItemClickListener(ItemClickListener listener) {
         mListener = listener;
@@ -118,6 +119,21 @@ public class DiaryDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 dataHolder.layoutView.setBackgroundColor(context.getResources().getColor(R.color.white));
                 dataHolder.txtToTop.setVisibility(View.VISIBLE);
                 dataHolder.txtDelete.setText("作废");
+            }
+
+            if(listItem.getIsTop()>2)
+            {
+                dataHolder.txtToTop.setText("取消置顶");
+            }
+            else
+            {
+                dataHolder.txtToTop.setText("置顶");
+            }
+
+            if(taskState==329)
+            {
+                dataHolder.txtToTop.setVisibility(View.INVISIBLE);
+                dataHolder.txtDelete.setVisibility(View.INVISIBLE);
             }
 
             if(roleId !=0){
@@ -244,6 +260,11 @@ public class DiaryDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
+
+    public void setTaskState(int taskState) {
+        this.taskState = taskState;
+    }
+
 
     public interface ItemClickListener {
         void onItemClick(View v, DecorateDetailResponse.DataBean item);
