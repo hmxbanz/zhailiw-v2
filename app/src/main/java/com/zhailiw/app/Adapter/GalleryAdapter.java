@@ -1,12 +1,16 @@
 package com.zhailiw.app.Adapter;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,7 +55,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
     public void setFooterView(View footerView) {
         mFooterView = footerView;
-        notifyItemInserted(0);//告知Adapter首位置项变动了
+        //notifyItemInserted(0);//告知Adapter首位置项变动了
     }
 
     public GalleryAdapter(Context c){
@@ -128,6 +132,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mListener.onItemClick(position,listItem);
                 }
             });
+
+            dataHolder.galleryName.setText(listItem.getGalleryName());
+            dataHolder.galleryType.setText(listItem.getGalleryTypeName());
         }
     }
     @Override
@@ -202,27 +209,38 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onLoading(){
         mFooterView.setVisibility(View.VISIBLE);
         TextView tips=mFooterView.findViewById(R.id.tips);
-        MaterialProgressBar progressBar=mFooterView.findViewById(R.id.progress_wheel);
-        mFooterView.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
         tips.setText(R.string.layout_dialog_loading);
+        ContentLoadingProgressBar progressBar=mFooterView.findViewById(R.id.progress_wheel);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(context,R.color.mainColor), PorterDuff.Mode.MULTIPLY);
     }
     public void onLoadingDone(){
         mFooterView.setVisibility(View.VISIBLE);
-        TextView tips=mFooterView.findViewById(R.id.tips);
-        MaterialProgressBar progressBar=mFooterView.findViewById(R.id.progress_wheel);
-        progressBar.setVisibility(View.GONE);
+        TextView tips = mFooterView.findViewById(R.id.tips);
+        ContentLoadingProgressBar progressBar = mFooterView.findViewById(R.id.progress_wheel);
+        progressBar.setVisibility(View.INVISIBLE);
         tips.setText("我是有底线的");
     }
 
     public class DataHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         private ImageView imageView;
-        private RelativeLayout layoutView;
+        private TextView galleryName;
+        private TextView galleryType;
+        private LinearLayout layoutView;
         public DataHolder(View itemView) {
             super(itemView);
             imageView =  itemView.findViewById(R.id.image);
             layoutView = itemView.findViewById(R.id.layout);
+            galleryName = itemView.findViewById(R.id.gallery_name);
+            galleryType = itemView.findViewById(R.id.txt_type);
+        }
+
+        public void setGalleryName(TextView galleryName) {
+            this.galleryName = galleryName;
+        }
+        public void setGalleryType(TextView galleryType) {
+            this.galleryType = galleryType;
         }
 
         public ImageView getImageView() {
@@ -233,11 +251,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             this.imageView = imageView;
         }
 
-        public RelativeLayout getLayoutView() {
+        public LinearLayout getLayoutView() {
             return layoutView;
         }
 
-        public void setLayoutView(RelativeLayout layoutView) {
+        public void setLayoutView(LinearLayout layoutView) {
             this.layoutView = layoutView;
         }
 

@@ -18,29 +18,5 @@ public class MainApplication extends Application {
         NLog.setDebug(true);//开log日志
         MobSDK.init(this);
         //ZXingLibrary.initDisplayOpinion(this);
-        NineGridView.setImageLoader(new PicassoImageLoader());
-
     }
-
-    /** Picasso 加载 */
-    private class PicassoImageLoader implements NineGridView.ImageLoader {
-
-        @Override
-        public void onDisplayImage(Context context, ImageView imageView, String url) {
-            Glide.with(context.getApplicationContext())
-                    .load(url)
-                    //.placeholder(R.drawable.ic_default_color)//
-                    //.error(R.drawable.app_icon)//
-                    //.diskCacheStrategy(DiskCacheStrategy.ALL)//
-                    //.crossFade()
-                    .into(imageView);
-        }
-
-        @Override
-        public Bitmap getCacheImage(String url) {
-            return null;
-        }
-    }
-
-
 }

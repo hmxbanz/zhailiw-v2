@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.zhailiw.app.R;
 import com.zhailiw.app.presenter.MainPresenter;
 import com.zhailiw.app.view.fragment.CompanyFragment;
+import com.zhailiw.app.view.fragment.DesignFragment;
 import com.zhailiw.app.view.fragment.DesignerFragment;
 import com.zhailiw.app.view.fragment.MeFragment;
-import com.zhailiw.app.view.fragment.MineFragment;
 import com.zhailiw.app.view.fragment.WorkFragment;
 
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity {
         FragmentPagerAdapter mFragmentPagerAdapter; //将 tab  页面持久在内存中
         viewPager = findViewById(R.id.main_viewpager);
         mFragments = new ArrayList<>();
-        mFragments.add(DesignerFragment.getInstance());
+        mFragments.add(DesignFragment.getInstance());
         mFragments.add(CompanyFragment.getInstance());
         mFragments.add(WorkFragment.getInstance());
         mFragments.add(MeFragment.getInstance());

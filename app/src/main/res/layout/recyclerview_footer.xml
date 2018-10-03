@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:visibility="invisible"
     android:orientation="horizontal"
     android:gravity="center"
     android:layout_width="match_parent"
@@ -9,19 +10,20 @@
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:layout_margin="2dp">
-
-    <com.zhailiw.app.widget.progressBar.MaterialProgressBar
+    <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/progress_wheel"
-        android:visibility="visible"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:bar_rimshown="true"
-        app:bar_color="@color/mainColor"
-        app:rim_color="@color/white"
-        app:bar_width="3dp"
-        app:rim_width="3dp"
-        android:layout_gravity="center"
-        />
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        style="?android:attr/progressBarStyleSmallInverse"        />
+        <!--style="?android:attr/progressBarStyle"
+        style="?android:attr/progressBarStyleHorizontal"
+        style="?android:attr/progressBarStyleInverse"
+        style="?android:attr/progressBarStyleLarge"
+        style="?android:attr/progressBarStyleLargeInverse"
+        style="?android:attr/progressBarStyleSmall"
+        style="?android:attr/progressBarStyleSmallInverse"
+        style="?android:attr/progressBarStyleSmallTitle" -->
+
     <TextView
         android:id="@+id/tips"
         android:text="@string/layout_dialog_loading"

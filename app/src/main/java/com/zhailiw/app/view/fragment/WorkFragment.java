@@ -36,7 +36,7 @@ public class WorkFragment extends Fragment  {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_designer, null);
+        view = inflater.inflate(R.layout.fragment_company, null);
         initViews();
         return view;
     }

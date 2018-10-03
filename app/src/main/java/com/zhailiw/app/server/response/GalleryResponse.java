@@ -58,8 +58,26 @@ public class GalleryResponse {
 
         private int GalleryID;
         private String GalleryName;
+        private String GalleryTypeName;
         private Object GalleryCover;
         private String CreateDate;
+        private String GalleryInfo;
+
+        public String getGalleryInfo() {
+            return GalleryInfo;
+        }
+
+        public void setGalleryInfo(String galleryInfo) {
+            GalleryInfo = galleryInfo;
+        }
+
+        public String getGalleryTypeName() {
+            return GalleryTypeName;
+        }
+
+        public void setGalleryTypeName(String galleryTypeName) {
+            GalleryTypeName = galleryTypeName;
+        }
 
         public int getGalleryID() {
             return GalleryID;

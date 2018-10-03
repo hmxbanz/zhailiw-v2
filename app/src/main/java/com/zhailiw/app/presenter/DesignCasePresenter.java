@@ -8,7 +8,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.preview.ImagePreviewActivity;
@@ -17,7 +16,6 @@ import com.zhailiw.app.Adapter.GalleryAdapter;
 import com.zhailiw.app.Const;
 import com.zhailiw.app.R;
 import com.zhailiw.app.common.NToast;
-import com.zhailiw.app.listener.AlertDialogCallBack;
 import com.zhailiw.app.listener.EndlessRecyclerOnScrollListener;
 import com.zhailiw.app.server.HttpException;
 import com.zhailiw.app.server.async.OnDataListener;
@@ -25,19 +23,16 @@ import com.zhailiw.app.server.response.GalleryPicResponse;
 import com.zhailiw.app.server.response.GalleryResponse;
 import com.zhailiw.app.server.response.SystemObjResponse;
 import com.zhailiw.app.view.activity.ImgPreviewActivity;
-import com.zhailiw.app.view.activity.LoginFirstActivity;
 import com.zhailiw.app.view.activity.MainActivity;
-import com.zhailiw.app.widget.DialogWithYesOrNoUtils;
 import com.zhailiw.app.widget.LoadDialog;
-import com.zhailiw.app.widget.progressBar.MaterialProgressBar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class GalleryFragmentPresenter extends BasePresenter implements GalleryAdapter.ItemClickListener,OnDataListener,SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG = GalleryFragmentPresenter.class.getSimpleName();
+public class DesignCasePresenter extends BasePresenter implements GalleryAdapter.ItemClickListener,OnDataListener,SwipeRefreshLayout.OnRefreshListener {
+    private static final String TAG = DesignCasePresenter.class.getSimpleName();
     private static final int GETGALLERY = 1;
     private static final int GETGALLERYPICS = 2;
     public static int REQUEST_CODE=33;
@@ -57,7 +52,7 @@ public class GalleryFragmentPresenter extends BasePresenter implements GalleryAd
     private String galleryTypeId=null;
     private String galleryInfo;
 
-    public GalleryFragmentPresenter(Context context){
+    public DesignCasePresenter(Context context){
         super(context);
         basePresenter = BasePresenter.getInstance(context);
         activity = (MainActivity) context;
@@ -87,7 +82,7 @@ public class GalleryFragmentPresenter extends BasePresenter implements GalleryAd
                 Logger.d("GETGALLERY totalPages:%s pageIndex:%s", totalPages ,pageIndex);
                 if(pageIndex<totalPages) {
                     dataAdapter.onLoading();
-                    atm.request(GETGALLERY, GalleryFragmentPresenter.this);
+                    atm.request(GETGALLERY, DesignCasePresenter.this);
                 }
                 else
                 {
@@ -96,14 +91,14 @@ public class GalleryFragmentPresenter extends BasePresenter implements GalleryAd
             }
         };
         this.recyclerView.addOnScrollListener(onScrollListener);
-        atm.request(GETGALLERY,GalleryFragmentPresenter.this);
+        atm.request(GETGALLERY,DesignCasePresenter.this);
     }
 
     @Override
     public Object doInBackground(int requestCode, String parameter) throws HttpException {
         switch (requestCode) {
             case GETGALLERY:
-                return userAction.getGallery(pageIndex+"",galleryTypeId,"1");//取设计案例
+                return userAction.getGallery(pageIndex+"",galleryTypeId,"2");//取设计案例
             case GETGALLERYPICS:
                 return userAction.getGalleryPic(String.valueOf(localGalleryId));
         }
@@ -166,13 +161,13 @@ public class GalleryFragmentPresenter extends BasePresenter implements GalleryAd
         this.onScrollListener.reset();
         list.clear();
         dataAdapter.notifyDataSetChanged();
-        atm.request(GETGALLERY,GalleryFragmentPresenter.this);
+        atm.request(GETGALLERY,DesignCasePresenter.this);
     }
     @Override
     public void onItemClick(int position, GalleryResponse.DataBean item) {
          localGalleryId=item.getGalleryID();
          galleryInfo = item.getGalleryInfo();
-         atm.request(GETGALLERYPICS,GalleryFragmentPresenter.this);
+         atm.request(GETGALLERYPICS,DesignCasePresenter.this);
     }
 
     @Override
@@ -182,7 +177,7 @@ public class GalleryFragmentPresenter extends BasePresenter implements GalleryAd
         this.onScrollListener.reset();
         list.clear();
         dataAdapter.notifyDataSetChanged();
-        atm.request(GETGALLERY,GalleryFragmentPresenter.this);
+        atm.request(GETGALLERY,DesignCasePresenter.this);
     }
 
     @Override
@@ -192,7 +187,7 @@ public class GalleryFragmentPresenter extends BasePresenter implements GalleryAd
         this.onScrollListener.reset();
         list.clear();
         dataAdapter.notifyDataSetChanged();
-        atm.request(GETGALLERY,GalleryFragmentPresenter.this);
+        atm.request(GETGALLERY,DesignCasePresenter.this);
     }
 
 }

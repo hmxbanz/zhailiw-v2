@@ -65,10 +65,7 @@ public class DesignerFragment extends Fragment  {
         mWebView.getSettings().setAppCacheEnabled(true);
         //设置缓存模式
         url = "http://api2.zhailiw.com/home/getnews?newsId=3";
-        TextView txtTitle = (TextView) view.findViewById(R.id.txt_title);
-        txtTitle.setText("设计师");
-        view.findViewById(R.id.img_left).setVisibility(View.INVISIBLE);
-        txtTitle.setText("设计师");
+
         mWebView.loadUrl(url);
     }
 

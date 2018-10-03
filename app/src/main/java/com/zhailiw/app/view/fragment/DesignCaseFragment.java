@@ -14,25 +14,24 @@ import android.widget.TextView;
 import com.lzy.ninegrid.NineGridView;
 import com.zhailiw.app.R;
 import com.zhailiw.app.loader.GlideImageLoaderForNineGridView;
+import com.zhailiw.app.presenter.DesignCasePresenter;
 import com.zhailiw.app.presenter.GalleryFragmentPresenter;
 
 /**
  * Created by AMing on 16/6/21.
  * Company RongCloud
  */
-public class GalleryFragment extends Fragment implements View.OnClickListener  {
+public class DesignCaseFragment extends Fragment implements View.OnClickListener  {
 private static final int Blue=0x001bb4fb;
     private View view;
-    public static GalleryFragment instance = null;
-    private GalleryFragmentPresenter presenter;
-    private TextView title;
-    private RelativeLayout layout_me;
+    public static DesignCaseFragment instance = null;
+    private DesignCasePresenter presenter;
     private RecyclerView recycleView;
     private SwipeRefreshLayout swiper;
 
-    public static GalleryFragment getInstance() {
+    public static DesignCaseFragment getInstance() {
         if (instance == null) {
-            instance = new GalleryFragment();
+            instance = new DesignCaseFragment();
         }
         return instance;
     }
@@ -40,10 +39,10 @@ private static final int Blue=0x001bb4fb;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_gallery, null);
+        view = inflater.inflate(R.layout.fragment_design_case, null);
         initViews();
 //        initData();
-        presenter = new GalleryFragmentPresenter(getContext());
+        presenter = new DesignCasePresenter(getContext());
         presenter.init(recycleView,swiper);
         //StatusBarUtil.setTranslucent(getActivity(), StatusBarUtil.);
         //StatusBarUtil.setTranslucent(getActivity(),0);
@@ -60,23 +59,17 @@ private static final int Blue=0x001bb4fb;
     @Override
     public void onStart() {
         super.onStart();
-        //presenter.loadData();
     }
 
     private void initViews() {
         recycleView=  view.findViewById(R.id.recyclerView);
         swiper=  view.findViewById(R.id.swiper);
-
-//        //简单使用
-//        banner = (Banner) view.findViewById(R.id.banner);
-//        banner.setImageLoader(new GlideImageLoader());//设置图片加载器
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
-    @Override
     public void onClick(View v) {
     }
 

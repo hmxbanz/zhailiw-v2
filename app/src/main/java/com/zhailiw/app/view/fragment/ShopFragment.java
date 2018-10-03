@@ -62,8 +62,6 @@ private static final int Blue=0x001bb4fb;
     private void initViews() {
         recycleView=  view.findViewById(R.id.recyclerView);
         swiper=  view.findViewById(R.id.swiper);
-        ((TextView)view.findViewById(R.id.txt_title)).setText("家居商城");
-        view.findViewById(R.id.layout_back).setVisibility(View.INVISIBLE);
     }
 
     @Override

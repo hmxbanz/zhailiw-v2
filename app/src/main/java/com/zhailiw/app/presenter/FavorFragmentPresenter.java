@@ -63,7 +63,7 @@ public class FavorFragmentPresenter extends BasePresenter implements FavorAdapte
             public void onLoadMore(int currentPage) {
                 Logger.d("GETGALLERY currentPage:%s", currentPage);
                 pageIndex = currentPage;
-                if(pageIndex<=totalPages) {
+                if(pageIndex<totalPages) {
                     dataAdapter.onLoading();
                     atm.request(GETFAVOR, FavorFragmentPresenter.this);
                 }

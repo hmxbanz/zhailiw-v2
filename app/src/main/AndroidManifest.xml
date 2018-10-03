@@ -128,6 +128,7 @@
         <activity android:name=".view.activity.DiaryNewActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".view.activity.DiaryDetailActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".view.activity.DecoratePeopleActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.ImgPreviewActivity" ></activity>
     </application>
 
 </manifest>

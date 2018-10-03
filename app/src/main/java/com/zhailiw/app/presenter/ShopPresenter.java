@@ -78,7 +78,7 @@ public class ShopPresenter extends BasePresenter implements OnDataListener, Shop
                 footerView.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
                 tips.setText(R.string.layout_dialog_loading);
-                if(pageIndex<=totalPages) {
+                if(pageIndex<totalPages) {
                     atm.request(GETPRODUCTS, ShopPresenter.this);
                 }
                 else

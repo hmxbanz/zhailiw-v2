@@ -87,7 +87,6 @@ public class DecorateAllFragmentPresenter extends BasePresenter implements Decor
     @Override
     public void onRefresh() {
         list.clear();
-        LoadDialog.show(context);
         atm.request(GETDECORATEALL,DecorateAllFragmentPresenter.this);
     }
 

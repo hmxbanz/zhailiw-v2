@@ -126,11 +126,12 @@ public class UserAction extends BaseAction {
 
     }
     //图库
-    public GalleryResponse getGallery(String pageIndex,String galleryTypeId) throws HttpException {
+    public GalleryResponse getGallery(String pageIndex,String galleryTypeId,String type) throws HttpException {
         String uri = getURL("Home/getGallery");
         LinkedHashMap map=new LinkedHashMap<>();
         map.put("pageIndex",pageIndex);
         map.put("galleryTypeId",galleryTypeId);
+        map.put("type",type);
         return getRequest(GalleryResponse.class,map,uri);
     }
     //图库图片
