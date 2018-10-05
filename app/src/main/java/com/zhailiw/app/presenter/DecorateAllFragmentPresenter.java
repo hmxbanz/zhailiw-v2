@@ -46,9 +46,9 @@ public class DecorateAllFragmentPresenter extends BasePresenter implements Decor
         this.swiper.setOnRefreshListener(this);
         this.recycleView.setAdapter(dataAdapter);
         this.recycleView.setNestedScrollingEnabled(true);
-
         gridLayoutManager=new GridLayoutManager(context,1);
         this.recycleView.setLayoutManager(gridLayoutManager);
+        atm.request(GETDECORATEALL,DecorateAllFragmentPresenter.this);
     }
 
     @Override

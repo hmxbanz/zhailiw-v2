@@ -21,9 +21,8 @@ import com.zhailiw.app.presenter.GalleryFragmentPresenter;
  * Created by AMing on 16/6/21.
  * Company RongCloud
  */
-public class DesignCaseFragment extends Fragment implements View.OnClickListener  {
+public class DesignCaseFragment extends BaseFragment  {
 private static final int Blue=0x001bb4fb;
-    private View view;
     public static DesignCaseFragment instance = null;
     private DesignCasePresenter presenter;
     private RecyclerView recycleView;
@@ -36,41 +35,22 @@ private static final int Blue=0x001bb4fb;
         return instance;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_design_case, null);
-        initViews();
-//        initData();
+    protected int getLayoutId() {
+        return R.layout.fragment_design_case;
+    }
+
+    @Override
+    protected void initViews() {
+        recycleView=  findView(R.id.recyclerView);
+        swiper=  findView(R.id.swiper);
+    }
+
+    @Override
+    protected void initData() {
         presenter = new DesignCasePresenter(getContext());
         presenter.init(recycleView,swiper);
-        //StatusBarUtil.setTranslucent(getActivity(), StatusBarUtil.);
-        //StatusBarUtil.setTranslucent(getActivity(),0);
         NineGridView.setImageLoader(new GlideImageLoaderForNineGridView());
-        return view;
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    private void initViews() {
-        recycleView=  view.findViewById(R.id.recyclerView);
-        swiper=  view.findViewById(R.id.swiper);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-    public void onClick(View v) {
     }
 
 }

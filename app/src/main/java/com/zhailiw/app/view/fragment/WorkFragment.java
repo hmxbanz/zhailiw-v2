@@ -15,16 +15,12 @@ import com.zhailiw.app.R;
 import com.zhailiw.app.webview.MyWebChromeClient;
 import com.zhailiw.app.webview.MyWebViewClient;
 
-public class WorkFragment extends Fragment  {
-    private View view;
+public class WorkFragment extends BaseFragment  {
     public static WorkFragment instance = null;
     private WebView mWebView;
     public PullToRefreshWebView mPullWebView;
-    private final static int menuService=1002;
-    private long lastBackPressTime;
     private MyWebChromeClient myWebChromeClient;
     private String url;
-    private TextView txtRight;
 
     public static WorkFragment getInstance() {
         if (instance == null) {
@@ -33,12 +29,9 @@ public class WorkFragment extends Fragment  {
         return instance;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_company, null);
-        initViews();
-        return view;
+    protected int getLayoutId() {
+        return R.layout.fragment_company;
     }
 
     @Override
@@ -46,8 +39,14 @@ public class WorkFragment extends Fragment  {
         super.onStart();
     }
 
-    private void initViews() {
-        mPullWebView = (PullToRefreshWebView) view.findViewById(R.id.webview_help);//new PullToRefreshWebView(this);
+    @Override
+    protected void initViews() {
+        mPullWebView = (PullToRefreshWebView) findView(R.id.webview_help);//new PullToRefreshWebView(this);
+
+    }
+
+    @Override
+    protected void initData() {
         mPullWebView.setMode(PullToRefreshBase.Mode.DISABLED);
         mWebView = mPullWebView.getRefreshableView();
         myWebChromeClient=new MyWebChromeClient(getActivity());
@@ -61,9 +60,9 @@ public class WorkFragment extends Fragment  {
         mWebView.getSettings().setAppCacheEnabled(true);
         //设置缓存模式
         url = "http://api2.zhailiw.com/home/getnews?newsId=1";
-        TextView txtTitle = (TextView) view.findViewById(R.id.txt_title);
+        TextView txtTitle = (TextView) findView(R.id.txt_title);
         txtTitle.setText("工艺展示");
-        view.findViewById(R.id.img_left).setVisibility(View.INVISIBLE);
+        findView(R.id.img_left).setVisibility(View.INVISIBLE);
         mWebView.loadUrl(url);
     }
 

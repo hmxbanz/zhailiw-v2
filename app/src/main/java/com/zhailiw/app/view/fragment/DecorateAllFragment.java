@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zhailiw.app.R;
+import com.zhailiw.app.common.NLog;
 import com.zhailiw.app.presenter.DecorateAllFragmentPresenter;
 
-public class DecorateAllFragment extends Fragment  {
-    private View view;
+public class DecorateAllFragment extends BaseFragment  {
     public static DecorateAllFragment instance = null;
     private DecorateAllFragmentPresenter presenter;
     private RecyclerView recycleView;
@@ -25,27 +25,27 @@ public class DecorateAllFragment extends Fragment  {
         }
         return instance;
     }
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_all, null);
-        initViews();
-        presenter = new DecorateAllFragmentPresenter(getContext());
-        presenter.init(recycleView,swiper);
-        return view;
+    protected int getLayoutId() {
+        return R.layout.fragment_all;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if(presenter !=null)
-        presenter.onRefresh();
+//        if(presenter !=null)
+//        presenter.onRefresh();
+    }
+    @Override
+    protected void initViews() {
+        recycleView=  findView(R.id.recyclerView);
+        swiper=  findView(R.id.swiper);
     }
 
-    private void initViews() {
-        recycleView=  view.findViewById(R.id.recyclerView);
-        swiper=  view.findViewById(R.id.swiper);
+    @Override
+    protected void initData() {
+        presenter = new DecorateAllFragmentPresenter(getContext());
+        presenter.init(recycleView,swiper);
     }
 
 }

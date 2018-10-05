@@ -1,14 +1,6 @@
 package com.zhailiw.app.view.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshWebView;
@@ -16,16 +8,12 @@ import com.zhailiw.app.R;
 import com.zhailiw.app.webview.MyWebChromeClient;
 import com.zhailiw.app.webview.MyWebViewClient;
 
-public class DesignerFragment extends Fragment  {
-    private View view;
+public class DesignerFragment extends BaseFragment  {
     public static DesignerFragment instance = null;
     private WebView mWebView;
     public PullToRefreshWebView mPullWebView;
-    private final static int menuService=1002;
-    private long lastBackPressTime;
     private MyWebChromeClient myWebChromeClient;
     private String url;
-    private TextView txtRight;
 
     public static DesignerFragment getInstance() {
         if (instance == null) {
@@ -34,21 +22,17 @@ public class DesignerFragment extends Fragment  {
         return instance;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_designer, null);
-        initViews();
-        return view;
+    protected int getLayoutId() {
+        return R.layout.fragment_designer;
+    }
+
+    protected void initViews() {
+        mPullWebView = (PullToRefreshWebView) findView(R.id.webview_help);//new PullToRefreshWebView(this);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    private void initViews() {
-        mPullWebView = (PullToRefreshWebView) view.findViewById(R.id.webview_help);//new PullToRefreshWebView(this);
+    protected void initData() {
         mPullWebView.setMode(PullToRefreshBase.Mode.DISABLED);
         mWebView = mPullWebView.getRefreshableView();
         myWebChromeClient=new MyWebChromeClient(getActivity());
@@ -56,7 +40,6 @@ public class DesignerFragment extends Fragment  {
         mWebView.setWebViewClient(new MyWebViewClient(getActivity()));
 //        mWebView.getSettings().setLoadWithOverviewMode(false);
 //        mWebView.getSettings().setLoadWithOverviewMode(false);
-
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setAllowFileAccess(true);

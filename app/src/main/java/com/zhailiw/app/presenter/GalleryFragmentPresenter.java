@@ -96,6 +96,7 @@ public class GalleryFragmentPresenter extends BasePresenter implements GalleryAd
             }
         };
         this.recyclerView.addOnScrollListener(onScrollListener);
+        LoadDialog.show(context);
         atm.request(GETGALLERY,GalleryFragmentPresenter.this);
     }
 
